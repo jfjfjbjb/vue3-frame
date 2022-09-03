@@ -1,29 +1,3 @@
-<script setup>
-import { useAttrs, computed } from 'vue';
-
-defineProps({
-  modelValue: String
-});
-defineEmits(['update:modelValue']);
-
-const defaultAttrs = {
-  placeholder: '请输入...'
-};
-
-const attrs = computed(() => {
-  return Object.assign({}, defaultAttrs, useAttrs());
-});
-
-function getValue() {
-  return 'test ref';
-}
-
-// 抛出去，ref可以使用 [git]
-defineExpose({
-  getValue
-});
-</script>
-
 <template>
   <a-input
     v-bind="attrs"
@@ -31,5 +5,37 @@ defineExpose({
     @input="$emit('update:modelValue', $event.target.value)"
   ></a-input>
 </template>
+
+<script setup>
+import { useAttrs, computed, watch } from 'vue';
+const defaultAttrs = {
+  placeholder: '请输入'
+};
+
+/** props */
+const props = defineProps({
+  modelValue: String
+});
+/** emit */
+defineEmits(['update:modelValue']);
+
+/** computed */
+const attrs = computed(() => {
+  return Object.assign({}, defaultAttrs, useAttrs());
+});
+
+/** watch */
+watch(
+  () => props.modelValue,
+  (newVal, oldVal) => {
+    if (newVal !== oldVal) {
+      console.log(newVal, 'hahahah');
+    }
+  },
+  {
+    // immediate: true
+  }
+);
+</script>
 
 <style scoped lang="less"></style>
