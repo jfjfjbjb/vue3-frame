@@ -24,7 +24,9 @@ module.exports = {
   },
   globals: {
     _: 'readonly',
-    $message: 'readonly',
-    $bus: 'readonly'
+    $config: 'readonly',
+    $bus: 'readonly',
+    $loading: 'readonly',
+    $message: 'readonly'
   }
 };

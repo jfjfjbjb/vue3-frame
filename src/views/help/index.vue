@@ -25,7 +25,9 @@
       </a-menu>
     </a-layout-sider>
     <a-layout style="padding: 24px">
-      <component :is="activeExample" />
+      <keep-alive>
+        <component :is="activeExample" />
+      </keep-alive>
     </a-layout>
   </a-layout>
 </template>

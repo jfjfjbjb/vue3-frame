@@ -1,6 +1,20 @@
-import './window';
+import wins from './window';
 
-export default {
-  PROJECT_CODE: 'VUE3-FRAME',
-  PROJECT_NAME: 'VUE3-FRAME'
-}
+const config = {
+  // 项目
+  PROJECT: {
+    CODE: 'vue3-frame',
+    NAME: 'vue3-frame',
+  },
+  // loading
+  LOADING: {
+    BASE: {
+      showSpinner: false
+    }
+  }
+};
+
+// 注册window
+wins(config);
+
+export default config;

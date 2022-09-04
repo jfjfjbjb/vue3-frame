@@ -79,11 +79,11 @@
 
 <script lang="jsx" setup>
 import { apiGet, apiPost, apiText } from '@/api/test';
-import { reactive, ref, computed, getCurrentInstance, onMounted } from 'vue';
+import { reactive, ref, computed, onMounted } from 'vue';
 import { useCounterStore } from '@/stores/counter';
 import OceanbaseIcon from '@/assets/oceanbase.svg?component';
 import config from './config.jsx';
-const { proxy } = getCurrentInstance();
+// const { proxy } = getCurrentInstance();
 const uc = useCounterStore();
 const self = {};
 // refs
@@ -103,7 +103,7 @@ const testStoreCounter = computed(() => {
 });
 // life circle
 onMounted(() => {
-  console.log(proxy, uc.counter);
+  // console.log(proxy, uc.counter);
   // get请求
   apiGet({ a: 111 })
     .then((res) => {
