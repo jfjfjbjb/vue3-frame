@@ -1,7 +1,3 @@
-<script lang="jsx" setup>
-import { RouterView } from 'vue-router';
-</script>
-
 <template>
   <div>
     <h1>layout-root</h1>
@@ -9,5 +5,9 @@ import { RouterView } from 'vue-router';
     <RouterView></RouterView>
   </div>
 </template>
+
+<script lang="jsx" setup>
+import { RouterView } from 'vue-router';
+</script>
 
 <style scoped lang="less"></style>
