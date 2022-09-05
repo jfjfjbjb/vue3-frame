@@ -2,7 +2,7 @@
   <a-input
     v-bind="attrs"
     :value="modelValue"
-    @input="$emit('update:modelValue', $event.target.value)"
+    @input="onInput"
   ></a-input>
 </template>
 
@@ -17,19 +17,24 @@ const props = defineProps({
   modelValue: String
 });
 /** emit */
-defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue']);
 
 /** computed */
 const attrs = computed(() => {
   return Object.assign({}, defaultAttrs, useAttrs());
 });
 
+/** methods */
+const onInput = function($event) {
+  emit('update:modelValue', $event.target.value);
+}
+
 /** watch */
 watch(
   () => props.modelValue,
   (newVal, oldVal) => {
     if (newVal !== oldVal) {
-      console.log(newVal, 'hahahah');
+      console.log('input newVal:', newVal);
     }
   },
   {

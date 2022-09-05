@@ -3,12 +3,17 @@ import { createPinia } from 'pinia';
 import router from './router';
 import App from './App.vue';
 import components from './components/index';
-import './config';
+import config from './config';
+import wins, { winRegister, winKeys } from './utils/window';
 import './style/index.less';
 
 const app = createApp(App);
 app.use(createPinia());
 app.use(router);
+
+// 注册windows全局属性
+wins(config);
+winRegister(winKeys.$ROOT, app);
 
 // 注册全局组件
 _.forEach(components, (item, key) => {

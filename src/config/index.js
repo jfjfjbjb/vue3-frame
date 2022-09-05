@@ -1,5 +1,3 @@
-import wins from './window';
-
 const config = {
   // 项目
   PROJECT: {
@@ -13,8 +11,5 @@ const config = {
     }
   }
 };
-
-// 注册window
-wins(config);
 
 export default config;

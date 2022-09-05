@@ -61,7 +61,7 @@ const activeExample = computed(() => {
 
 // methods
 function onClick({ item, key, keyPath }) {
-  console.log(item, key, keyPath, 'click-menu-item');
+  $log.group('click-menu-item', { item, key, keyPath });
 }
 </script>
 

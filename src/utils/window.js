@@ -3,6 +3,7 @@ import { message } from 'ant-design-vue';
 import 'ant-design-vue/es/message/style/css';
 import mitt from 'mitt';
 import loading from '@/utils/loading';
+import log from '@/utils/log';
 
 export default (config = {}) => {
   // config
@@ -11,8 +12,25 @@ export default (config = {}) => {
   window._ = _;
   // global loading
   window.$loading = loading(config);
+  // log
+  window.$log = log;
   // event bus
   window.$bus = mitt();
   // antd $message
   window.$message = message;
-}
+};
+
+// 后续扩展的全局属性，需要到eslintrc里设置global
+export const winKeys = {
+  // 注册app实例 [main.js]
+  $ROOT: '$ROOT'
+};
+
+// window属性注册机
+export const winRegister = (key, val) => {
+  if (winKeys[key] == null) {
+    console.warn('未定义的win_key:', key);
+    return;
+  }
+  window[key] = val;
+};

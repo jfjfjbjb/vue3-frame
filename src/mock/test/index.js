@@ -3,7 +3,7 @@ export default [
     url: '/api/get',
     method: 'get',
     response: ({ query }) => {
-      // console.log('get: query', query)
+      // console.log('get:', query)
       return {
         code: 0,
         data: {
@@ -17,7 +17,7 @@ export default [
     method: 'post',
     timeout: 2000,
     response: ({body}) => {
-      // console.log('post: ', body)
+      // console.log('post:', body)
       return {
         code: 0,
         data: {
