@@ -38,6 +38,7 @@ import Logo from '@/assets/logo.svg?component';
 import { FireOutlined } from '@ant-design/icons-vue';
 import exampleComps from './example';
 
+// data
 const collapsed = ref(false);
 const openKeys = ref(['common']);
 const selectedKeys = ref(['Playground']);
@@ -46,6 +47,10 @@ const example = ref({
     {
       key: 'Playground',
       name: 'Playground'
+    },
+    {
+      key: 'Request',
+      name: 'Request'
     },
     {
       key: 'Form',
@@ -61,7 +66,7 @@ const activeExample = computed(() => {
 
 // methods
 function onClick({ item, key, keyPath }) {
-  $log.group('click-menu-item', { item, key, keyPath });
+  console.log('onClick -> { item, key, keyPath }', { item, key, keyPath });
 }
 </script>
 

@@ -1,5 +1,6 @@
 <template>
   <a-input
+    class="custom-input"
     v-bind="attrs"
     :value="modelValue"
     @input="onInput"

@@ -3,7 +3,7 @@ import { message } from 'ant-design-vue';
 import 'ant-design-vue/es/message/style/css';
 import mitt from 'mitt';
 import loading from '@/utils/loading';
-import log from '@/utils/log';
+import common from '@/utils/common';
 
 export default (config = {}) => {
   // config
@@ -12,8 +12,8 @@ export default (config = {}) => {
   window._ = _;
   // global loading
   window.$loading = loading(config);
-  // log
-  window.$log = log;
+  // common
+  window.$common = common;
   // event bus
   window.$bus = mitt();
   // antd $message

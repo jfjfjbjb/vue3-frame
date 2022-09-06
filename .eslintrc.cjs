@@ -27,7 +27,7 @@ module.exports = {
     $config: 'readonly',
     $bus: 'readonly',
     $loading: 'readonly',
-    $log: 'readonly',
+    $common: 'readonly',
     $message: 'readonly'
   }
 };

@@ -2,6 +2,7 @@ export default [
   {
     url: '/api/get',
     method: 'get',
+    timeout: 500,
     response: ({ query }) => {
       // console.log('get:', query)
       return {
@@ -15,7 +16,7 @@ export default [
   {
     url: '/api/post',
     method: 'post',
-    timeout: 2000,
+    timeout: 800,
     response: ({body}) => {
       // console.log('post:', body)
       return {

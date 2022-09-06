@@ -1,5 +1,8 @@
 <template>
   <a-config-provider :locale="locale">
+    <template #renderEmpty>
+      <custom-empty></custom-empty>
+    </template>
     <div id="entry">
       <RouterView />
     </div>
