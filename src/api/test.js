@@ -16,9 +16,9 @@ export function apiPost(params) {
   });
 }
 
-export function apiText(params) {
+export function apiErr(params) {
   return http({
-    url: '/api/text',
+    url: '/api/post/err',
     method: 'post',
     data: params
   });

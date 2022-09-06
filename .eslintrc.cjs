@@ -28,6 +28,7 @@ module.exports = {
     $bus: 'readonly',
     $loading: 'readonly',
     $common: 'readonly',
-    $message: 'readonly'
+    $message: 'readonly',
+    $notification: 'readonly'
   }
 };

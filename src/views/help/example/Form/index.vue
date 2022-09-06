@@ -1,6 +1,6 @@
 <template>
   <div class="example-form">
-    <a-card title="TODO..."> </a-card>
+    <a-card hoverable title="TODO..."> </a-card>
   </div>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
   <div class="example-content example-playground">
     <div class="examples">
-      <a-card title="图片使用" id="example-playground-imgs">
+      <a-card hoverable title="图片使用" id="example-playground-imgs">
         <img
           alt="Vue logo"
           class="logo"
@@ -27,12 +27,12 @@
         </div>
       </a-card>
 
-      <a-card title="jsx使用" id="example-playground-jsx">
+      <a-card hoverable title="jsx使用" id="example-playground-jsx">
         <VNode :node="getJSX" />
         <VNode :node="cfg.getJSX" />
       </a-card>
 
-      <a-card title="pinia测试" id="example-playground-pinia">
+      <a-card hoverable title="pinia测试" id="example-playground-pinia">
         <div class="color-purple">
           <div>testPinia: {{ testStoreCounter }}</div>
           <div>test: {{ state.count }}</div>
@@ -40,7 +40,7 @@
         </div>
       </a-card>
 
-      <a-card title="表单项初测" id="example-playground-form">
+      <a-card hoverable title="表单项初测" id="example-playground-form">
         <div>
           {{ date }}
           <a-date-picker
@@ -78,7 +78,6 @@
 </template>
 
 <script lang="jsx" setup>
-import { apiGet, apiPost, apiText } from '@/api/test';
 import { reactive, ref, computed, onMounted } from 'vue';
 import { useCounterStore } from '@/stores/counter';
 import OceanbaseIcon from '@/assets/oceanbase.svg?component';
@@ -104,30 +103,6 @@ const testStoreCounter = computed(() => {
 // life circle
 onMounted(() => {
   // console.log(proxy, uc.counter);
-  // get请求
-  apiGet({ a: 111 })
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((e) => {
-      console.log(e);
-    });
-  // post请求
-  apiPost({ b: 222 })
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((e) => {
-      console.log(e);
-    });
-  // post请求
-  apiText({ c: 333 })
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((e) => {
-      console.log(e);
-    });
   // 监听事件
   window.$bus.on('event-test', (data) => {
     console.log('evt: ', data);
