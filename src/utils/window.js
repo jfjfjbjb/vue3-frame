@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { message, notification } from 'ant-design-vue';
 import 'ant-design-vue/es/message/style/css';
 import 'ant-design-vue/es/notification/style/css';
-import mitt from 'mitt';
+import event from '@/utils/event';
 import loading from '@/utils/loading';
 import common from '@/utils/common';
 
@@ -16,7 +16,7 @@ export default (config = {}) => {
   // common
   window.$common = common;
   // event bus
-  window.$bus = mitt();
+  window.$bus = event;
   // antd $message
   window.$message = message;
   // antd $notification
