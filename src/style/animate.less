@@ -1,0 +1,23 @@
+// 闪亮效果
+.shiny {
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: -120px;
+    left: -80px;
+    width: 36px;
+    height: 360px;
+    background: #fff;
+    opacity: 0.16;
+    transform: rotate(-45deg);
+    transition: all 500ms ease-out;
+  }
+
+  &:hover::after {
+    left: 200%;
+  }
+}
