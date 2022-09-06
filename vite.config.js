@@ -9,6 +9,7 @@ import { viteMockServe } from 'vite-plugin-mock';
 import Components from 'unplugin-vue-components/vite';
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers';
 import svgLoader from 'vite-svg-loader';
+import theme from './src/style/theme';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
@@ -26,7 +27,12 @@ export default defineConfig(({ command, mode }) => {
       }),
       svgLoader(),
       Components({
-        resolvers: [AntDesignVueResolver()]
+        resolvers: [
+          AntDesignVueResolver({
+            // 开启该项，才可以modifyVars
+            importStyle: 'less'
+          })
+        ]
       })
     ],
     resolve: {
@@ -40,6 +46,7 @@ export default defineConfig(({ command, mode }) => {
       },
       preprocessorOptions: {
         less: {
+          modifyVars: theme['default'],
           javascriptEnabled: true,
           charset: false,
           additionalData: '@import "./src/style/var.less";'

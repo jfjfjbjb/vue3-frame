@@ -2,21 +2,9 @@
   <div class="example-content example-playground">
     <div class="examples">
       <a-card hoverable title="图片使用" id="example-playground-imgs">
-        <img
-          alt="Vue logo"
-          class="logo"
-          src="@/assets/M.png"
-          width="125"
-          height="125"
-        />
-        <img
-          alt="Vue logo"
-          class="logo"
-          src="@/assets/oceanbase.svg?url"
-          width="125"
-          height="125"
-        />
-        <OceanbaseIcon class="img" width="125" height="125" />
+        <img alt="Vue logo" class="logo" src="@/assets/M.png" />
+        <img alt="Vue logo" class="logo" src="@/assets/oceanbase.svg?url" />
+        <OceanbaseIcon class="logo img" />
         <div class="bg-img"></div>
         <!-- suggest -->
         <div class="suggest">
@@ -150,9 +138,13 @@ self.state = state;
 .color-green {
   color: @color-green;
 }
+.logo {
+  width: 50px;
+  height: 50px;
+}
 .bg-img {
-  width: 125px;
-  height: 125px;
+  width: 50px;
+  height: 50px;
   display: inline-block;
   background-image: url('@/assets/oceanbase.svg');
   background-repeat: no-repeat;

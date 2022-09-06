@@ -15,4 +15,8 @@ const attrs = computed(() => {
 });
 </script>
 
-<style scoped lang="less"></style>
+<style scoped lang="less">
+  .custom-empty {
+    margin: 12px 0;
+  }
+</style>
