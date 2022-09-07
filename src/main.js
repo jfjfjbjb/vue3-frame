@@ -6,9 +6,11 @@ import components from './components/index';
 import config from './config';
 import wins, { winRegister, winKeys } from './utils/window';
 // 样式全量引入，可以支持换肤
-import 'ant-design-vue/dist/antd.variable.min.css';
-// import 'ant-design-vue/dist/antd.variable.less';
+import 'ant-design-vue/dist/antd.variable.less';
+// import { getThemeVariables } from 'ant-design-vue/dist/theme';
 import './style/index.less';
+
+// console.log(getThemeVariables());
 
 const app = createApp(App);
 app.use(createPinia());
