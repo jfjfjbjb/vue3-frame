@@ -1,7 +1,7 @@
 <template>
   <a-layout class="page-help" style="min-height: 100vh">
     <a-layout-sider v-model:collapsed="collapsed" collapsible>
-      <div class="logo shiny"><Logo /></div>
+      <div class="logo ani-shiny"><Logo /></div>
       <a-menu
         v-model:openKeys="openKeys"
         v-model:selectedKeys="selectedKeys"

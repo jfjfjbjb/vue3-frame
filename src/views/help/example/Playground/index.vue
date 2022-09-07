@@ -4,10 +4,10 @@
       <a-card hoverable title="图片使用" id="example-playground-imgs">
         <img alt="Vue logo" class="logo" src="@/assets/M.png" />
         <img alt="Vue logo" class="logo" src="@/assets/oceanbase.svg?url" />
-        <OceanbaseIcon class="logo img" />
+        <OceanbaseIcon class="logo g-img" />
         <div class="bg-img"></div>
         <!-- suggest -->
-        <div class="suggest">
+        <div class="g-suggest">
           <div>1、普通图片（png,jpg,...），小图片build为base64</div>
           <div>2、svg?url 【svg图片使用】</div>
           <div>3、svg?component 【svg组件使用】</div>
