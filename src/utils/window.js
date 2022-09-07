@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { message, notification } from 'ant-design-vue';
-import 'ant-design-vue/es/message/style/index.less';
-import 'ant-design-vue/es/notification/style/index.less';
+// import 'ant-design-vue/es/message/style/index.less';
+// import 'ant-design-vue/es/notification/style/index.less';
 import event from '@/utils/event';
 import loading from '@/utils/loading';
 import common from '@/utils/common';

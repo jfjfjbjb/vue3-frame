@@ -12,3 +12,14 @@
   border-radius: 2px;
   background: rgba(0, 0, 0, 0.05);
 }
+
+// 忽略动画
+.@{global-prefix}-ignore-ani {
+  transition: none !important;
+  animation: none !important;
+
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}

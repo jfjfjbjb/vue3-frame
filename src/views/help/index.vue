@@ -1,11 +1,16 @@
 <template>
   <a-layout class="page-help" style="min-height: 100vh">
-    <a-layout-sider v-model:collapsed="collapsed" collapsible>
-      <div class="logo ani-shiny"><Logo /></div>
+    <a-layout-sider
+      :class="[themeTrans && 'g-ignore-ani']"
+      v-model:collapsed="collapsed"
+      collapsible
+      :theme="theme"
+    >
+      <div class="logo ani-shiny" @click="onChangeTheme"><Logo /></div>
       <a-menu
         v-model:openKeys="openKeys"
         v-model:selectedKeys="selectedKeys"
-        theme="dark"
+        :theme="theme"
         mode="inline"
         @click="onClick"
       >
@@ -33,12 +38,16 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+// eslint-disable-next-line no-unused-vars
+import { ref, computed, nextTick } from 'vue';
 import Logo from '@/assets/logo.svg?component';
-import { FireOutlined } from '@ant-design/icons-vue';
+// import { FireOutlined } from '@ant-design/icons-vue';
+import { ConfigProvider } from 'ant-design-vue';
 import exampleComps from './example';
 
 // data
+const theme = ref('dark');
+const themeTrans = ref(false);
 const collapsed = ref(false);
 const openKeys = ref(['common']);
 const selectedKeys = ref(['Playground']);
@@ -68,6 +77,19 @@ const activeExample = computed(() => {
 function onClick({ item, key, keyPath }) {
   console.log('onClick -> { item, key, keyPath }', { item, key, keyPath });
 }
+function onChangeTheme() {
+  themeTrans.value = true;
+  theme.value = theme.value === 'dark' ? 'light' : 'dark';
+  setTimeout(() => {
+    themeTrans.value = false;
+  });
+  // 测试换肤
+  ConfigProvider.config({
+    theme: {
+      primaryColor: 'red'
+    }
+  });
+}
 </script>
 
 <style scoped lang="less">
@@ -79,19 +101,25 @@ function onClick({ item, key, keyPath }) {
     height: 32px;
     margin: 16px;
     background: rgba(255, 255, 255, 0.3);
-    background-image: linear-gradient(135deg, #0b2b18 10%, #022b6b 100%);
-
+    cursor: pointer;
     > svg {
       height: 50%;
     }
   }
-}
 
-.site-layout .site-layout-background {
-  background: #fff;
-}
-[data-theme='dark'] .site-layout .site-layout-background {
-  background: #141414;
+  // 测试deep；后续theme的切换请使用less变量的方式
+  :deep(.ant-layout-sider) {
+    &.ant-layout-sider-light {
+      .logo {
+        background-image: linear-gradient(135deg, #e1a4d3 10%, #cef9ce 100%);
+      }
+    }
+    &.ant-layout-sider-dark {
+      .logo {
+        background-image: linear-gradient(135deg, #0b2b18 10%, #022b6b 100%);
+      }
+    }
+  }
 }
 </style>
 

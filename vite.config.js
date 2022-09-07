@@ -29,8 +29,8 @@ export default defineConfig(({ command, mode }) => {
       Components({
         resolvers: [
           AntDesignVueResolver({
-            // 开启该项，才可以modifyVars
-            importStyle: 'less'
+            importStyle: false,
+            resolveIcons: true
           })
         ]
       })
