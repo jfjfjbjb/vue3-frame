@@ -42,7 +42,6 @@
 import { ref, computed, nextTick } from 'vue';
 import Logo from '@/assets/logo.svg?component';
 // import { FireOutlined } from '@ant-design/icons-vue';
-import { ConfigProvider } from 'ant-design-vue';
 import exampleComps from './example';
 
 // data
@@ -60,6 +59,10 @@ const example = ref({
     {
       key: 'Request',
       name: 'Request'
+    },
+    {
+      key: 'Theme',
+      name: 'Theme'
     },
     {
       key: 'Form',
@@ -82,12 +85,6 @@ function onChangeTheme() {
   theme.value = theme.value === 'dark' ? 'light' : 'dark';
   setTimeout(() => {
     themeTrans.value = false;
-  });
-  // 测试换肤
-  ConfigProvider.config({
-    theme: {
-      primaryColor: 'red'
-    }
   });
 }
 </script>

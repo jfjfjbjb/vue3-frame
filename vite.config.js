@@ -9,7 +9,7 @@ import { viteMockServe } from 'vite-plugin-mock';
 import Components from 'unplugin-vue-components/vite';
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers';
 import svgLoader from 'vite-svg-loader';
-import commonjs from 'vite-plugin-commonjs'
+import commonjs from 'vite-plugin-commonjs';
 // 引入theme
 import theme from './src/style/theme';
 

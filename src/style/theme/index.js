@@ -9,14 +9,32 @@ if (g.require == null) {
     }
   };
 }
-// 去除color，只保留字体、圆角等骨架
-// const colorless = (themeObj = {}) => {
-//   const res = {};
-//   ['font-size-base', 'border-radius-base'].forEach((key) => {
-//     if (themeObj[key]) {
-//       res[key] = themeObj[key];
+// 去除color属性
+// export const colorless = (themeObj = {}) => {
+//   const variable = ['primary-color', 'error-color', 'warning-color', 'success-color', 'info-color'];
+
+//   // 递归检查是否最终引用了variable
+//   function deepCheck(val) {
+//     const matches = val != null ? (val + '').match(/(?<=@\{*)([\w\d-]+)(?=\}*)/g) : [];
+//     let flag = [];
+//     (matches || []).forEach((pKey, index) => {
+//       if (variable.includes(pKey)) {
+//         flag[index] = true;
+//       } else {
+//         flag[index] = deepCheck(themeObj[pKey]);
+//       }
+//     });
+//     return flag.includes(true);
+//   }
+
+//   const res = { hack: themeObj.hack };
+//   for (let [key, val] of Object.entries(themeObj)) {
+//     if (!variable.includes(key) && !deepCheck(val)) {
+//       res[key] = val;
 //     }
-//   });
+//   }
+//   delete res['theme'];
+//   // console.log(res)
 //   return res;
 // };
 export default {
