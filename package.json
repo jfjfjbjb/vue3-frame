@@ -33,6 +33,7 @@
     "prettier": "^2.7.1",
     "unplugin-vue-components": "^0.22.4",
     "vite": "^3.0.4",
+    "vite-plugin-commonjs": "^0.5.2",
     "vite-plugin-eslint": "^1.8.1",
     "vite-plugin-mock": "^2.9.6",
     "vite-svg-loader": "^3.4.0"

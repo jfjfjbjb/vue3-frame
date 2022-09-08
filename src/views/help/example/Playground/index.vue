@@ -12,11 +12,12 @@
         <ul class="g-suggest">
           <li>src="@/assets/M.png"</li>
           <li>import importSrc from '@/assets/M.png';</li>
-          <li>const dynamicSrc = $common.getAssetsSrc('M.png');</li>
+          <li>const dynamicSrc = $common.getAssetUrl('M.png');</li>
           <li>【svg图片使用】src="@/assets/oceanbase.svg?url"</li>
           <li>
             【svg组件使用】import OceanbaseIcon from
             '@/assets/oceanbase.svg?component';
+            <span class="notice">（样式必须内联，否则如上图没有颜色）</span>
           </li>
           <li>background-image: url('@/assets/oceanbase.svg');</li>
         </ul>
@@ -81,7 +82,7 @@
     >
       <a-anchor-link title="图片使用" href="#example-playground-imgs" />
       <a-anchor-link title="jsx使用" href="#example-playground-jsx" />
-      <a-anchor-link title="pinia测试" href="#example-playground-pinia" />
+      <a-anchor-link title="pinia初测" href="#example-playground-pinia" />
       <a-anchor-link title="表单项初测" href="#example-playground-form" />
     </a-anchor>
   </div>
@@ -97,7 +98,7 @@ import importSrc from '@/assets/M.png';
 const uc = useCounterStore();
 const self = {};
 // refs
-const dynamicSrc = $common.getAssetsSrc('M.png');
+const dynamicSrc = $common.getAssetUrl('M.png');
 const state = reactive({ count: 0 });
 const cfg = reactive(config(self));
 const date = ref();

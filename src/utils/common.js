@@ -13,9 +13,9 @@ export default {
     }
   },
   /**
-   * 获取assets路径
+   * 获取asset路径
    */
-  getAssetsSrc(src) {
-    return new URL(`../assets/${src}`, import.meta.url)
+  getAssetUrl(url) {
+    return new URL(`../assets/${url}`, import.meta.url)
   }
 }

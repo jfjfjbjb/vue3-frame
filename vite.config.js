@@ -9,9 +9,9 @@ import { viteMockServe } from 'vite-plugin-mock';
 import Components from 'unplugin-vue-components/vite';
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers';
 import svgLoader from 'vite-svg-loader';
-// import requireTransform from 'vite-plugin-require-transform';
+import commonjs from 'vite-plugin-commonjs'
 // 引入theme
-// import theme from './src/style/theme';
+import theme from './src/style/theme';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
@@ -36,11 +36,8 @@ export default defineConfig(({ command, mode }) => {
             resolveIcons: true
           })
         ]
-      })
-      // requireTransform({
-      //   // fileRegex: /.ts$|.tsx$|.vue$/
-      //   fileRegex: /.js$|.jsx$|.vue$/
-      // })
+      }),
+      commonjs()
     ],
     resolve: {
       alias: {
@@ -53,7 +50,7 @@ export default defineConfig(({ command, mode }) => {
       },
       preprocessorOptions: {
         less: {
-          // modifyVars: theme['default'],
+          modifyVars: theme['compact'],
           javascriptEnabled: true,
           charset: false,
           additionalData: '@import "./src/style/var.less";'
