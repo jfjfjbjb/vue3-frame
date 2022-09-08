@@ -10,33 +10,33 @@ if (g.require == null) {
   };
 }
 // 去除color属性
-// export const colorless = (themeObj = {}) => {
-//   const variable = ['primary-color', 'error-color', 'warning-color', 'success-color', 'info-color'];
+export const colorless = (themeObj = {}) => {
+  const variable = ['primary-color', 'error-color', 'warning-color', 'success-color', 'info-color'];
 
-//   // 递归检查是否最终引用了variable
-//   function deepCheck(val) {
-//     const matches = val != null ? (val + '').match(/(?<=@\{*)([\w\d-]+)(?=\}*)/g) : [];
-//     let flag = [];
-//     (matches || []).forEach((pKey, index) => {
-//       if (variable.includes(pKey)) {
-//         flag[index] = true;
-//       } else {
-//         flag[index] = deepCheck(themeObj[pKey]);
-//       }
-//     });
-//     return flag.includes(true);
-//   }
+  // 递归检查是否最终引用了variable
+  function deepCheck(val) {
+    const matches = val != null ? (val + '').match(/(?<=@\{*)([\w\d-]+)(?=\}*)/g) : [];
+    let flag = [];
+    (matches || []).forEach((pKey, index) => {
+      if (variable.includes(pKey)) {
+        flag[index] = true;
+      } else {
+        flag[index] = deepCheck(themeObj[pKey]);
+      }
+    });
+    return flag.includes(true);
+  }
 
-//   const res = { hack: themeObj.hack };
-//   for (let [key, val] of Object.entries(themeObj)) {
-//     if (!variable.includes(key) && !deepCheck(val)) {
-//       res[key] = val;
-//     }
-//   }
-//   delete res['theme'];
-//   // console.log(res)
-//   return res;
-// };
+  const res = { hack: themeObj.hack };
+  for (let [key, val] of Object.entries(themeObj)) {
+    if (!variable.includes(key) && !deepCheck(val)) {
+      res[key] = val;
+    }
+  }
+  delete res['theme'];
+  // console.log(res)
+  return res;
+};
 export default {
   // default: {
   //   'primary-color': '#1890ff', // 全局主色

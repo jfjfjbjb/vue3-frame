@@ -11,7 +11,7 @@ import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers';
 import svgLoader from 'vite-svg-loader';
 import commonjs from 'vite-plugin-commonjs';
 // 引入theme
-import theme from './src/style/theme';
+import theme, { colorless } from './src/style/theme';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
@@ -50,7 +50,8 @@ export default defineConfig(({ command, mode }) => {
       },
       preprocessorOptions: {
         less: {
-          modifyVars: theme['compact'],
+          // 当定制主题时使用
+          modifyVars: colorless(theme['dark']),
           javascriptEnabled: true,
           charset: false,
           additionalData: '@import "./src/style/var.less";'

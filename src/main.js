@@ -7,6 +7,9 @@ import config from './config';
 import wins, { winRegister, winKeys } from './utils/window';
 // 样式全量引入，可以支持换肤
 import 'ant-design-vue/dist/antd.variable.less';
+// import 'ant-design-vue/dist/antd.variable.min.css';
+// import 'ant-design-vue/dist/antd.compact.min.css';
+// import './style/theme/variable.css';
 import './style/index.less';
 // require('./style/index.less');
 
