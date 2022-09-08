@@ -8,9 +8,24 @@
   font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier,
     monospace;
   font-size: 12px;
-  padding: 12px;
+  padding: 12px 32px;
+  margin-top: 8px;
   border-radius: 2px;
   background: rgba(0, 0, 0, 0.05);
+
+  > li {
+    padding: 2px 0;
+    &:not(:last-child) {
+      border-bottom: 1px dashed rgba(0, 0, 0, 0.25);
+    }
+
+    > ul {
+      padding: 0 24px;
+    }
+  }
+  li.notice {
+    color: red;
+  }
 }
 
 // 忽略动画

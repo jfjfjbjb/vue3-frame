@@ -3,51 +3,73 @@
     <div class="examples">
       <a-card hoverable title="图片使用" id="example-playground-imgs">
         <img alt="Vue logo" class="logo" src="@/assets/M.png" />
+        <img alt="Vue logo" class="logo" :src="importSrc" />
+        <img alt="Vue logo" class="logo" :src="dynamicSrc" />
         <img alt="Vue logo" class="logo" src="@/assets/oceanbase.svg?url" />
         <OceanbaseIcon class="logo g-img" />
         <div class="bg-img"></div>
         <!-- suggest -->
-        <div class="g-suggest">
-          <div>1、普通图片（png,jpg,...），小图片build为base64</div>
-          <div>2、svg?url 【svg图片使用】</div>
-          <div>3、svg?component 【svg组件使用】</div>
-          <div>4、背景图使用</div>
-        </div>
+        <ul class="g-suggest">
+          <li>src="@/assets/M.png"</li>
+          <li>import importSrc from '@/assets/M.png';</li>
+          <li>const dynamicSrc = $common.getAssetsSrc('M.png');</li>
+          <li>【svg图片使用】src="@/assets/oceanbase.svg?url"</li>
+          <li>
+            【svg组件使用】import OceanbaseIcon from
+            '@/assets/oceanbase.svg?component';
+          </li>
+          <li>background-image: url('@/assets/oceanbase.svg');</li>
+        </ul>
       </a-card>
 
       <a-card hoverable title="jsx使用" id="example-playground-jsx">
         <VNode :node="getJSX" />
         <VNode :node="cfg.getJSX" />
+        <!-- suggest -->
+        <ul class="g-suggest">
+          <li>
+            使用场景：
+            <ul>
+              <li>页面公用块</li>
+              <li>slot嵌套过多</li>
+              <li>递归封装</li>
+            </ul>
+          </li>
+        </ul>
       </a-card>
 
-      <a-card hoverable title="pinia测试" id="example-playground-pinia">
+      <a-card hoverable title="pinia初测" id="example-playground-pinia">
         <div class="color-purple">
-          <div>testPinia: {{ testStoreCounter }}</div>
-          <div>test: {{ state.count }}</div>
-          <a-button class="color-green" @click="onTestPlus">添加+</a-button>
+          <a-tag>pinia: {{ testStoreCounter }}</a-tag>
+          <a-tag>count: {{ state.count }}</a-tag>
         </div>
+        <template #actions>
+          <a-button class="color-green" size="small" @click="onTestPlus"
+            >添加+</a-button
+          >
+        </template>
       </a-card>
 
       <a-card hoverable title="表单项初测" id="example-playground-form">
         <div>
-          {{ date }}
           <a-date-picker
             v-model:value="date"
             valueFormat="YYYY-MM-DD"
             @change="logDate"
           />
           <a-date-picker v-model:value="year" picker="year" @change="logDate" />
+          <div>{{ date }}</div>
         </div>
         <a-divider />
         <div>
-          <a-button @click="onCompTest">修改placeholder</a-button>
           <custom-input
             style="width: 200px"
             v-model="inputValue"
-            placeholder="rrrrr"
+            placeholder="默认placeholder"
             v-bind="inputAttrs"
           />
-          <span>{{ inputValue }}</span>
+          <a-button @click="onCompTest">修改placeholder</a-button>
+          <div>{{ inputValue }}</div>
         </div>
       </a-card>
     </div>
@@ -70,10 +92,12 @@ import { reactive, ref, computed, onMounted } from 'vue';
 import { useCounterStore } from '@/stores/counter';
 import OceanbaseIcon from '@/assets/oceanbase.svg?component';
 import config from './config.jsx';
+import importSrc from '@/assets/M.png';
 // const { proxy } = getCurrentInstance();
 const uc = useCounterStore();
 const self = {};
 // refs
+const dynamicSrc = $common.getAssetsSrc('M.png');
 const state = reactive({ count: 0 });
 const cfg = reactive(config(self));
 const date = ref();
@@ -98,11 +122,7 @@ onMounted(() => {
 });
 // methods
 function getJSX(h) {
-  return (
-    <div>
-      1、本文件获取 <b style='color: blue;'>jsx</b>
-    </div>
-  );
+  return <a-tag color='blue'>本文件jsx</a-tag>;
 }
 function onTestPlus() {
   uc.increment();
@@ -110,11 +130,11 @@ function onTestPlus() {
   window.$bus.emit('event-test', state.count);
 }
 function onCompTest() {
-  inputAttrs.value.placeholder = '时刻提防' + Math.random();
+  inputAttrs.value.placeholder = '修改后' + Math.random().toFixed(2);
 }
 function logDate(e) {
   window.$message.success(date.value);
-  console.log(e, date.value, year.value, 'date log');
+  console.log('date:', date.value, year.value);
 }
 function onClickAnchor(e, link) {
   e.preventDefault();
@@ -129,14 +149,9 @@ self.state = state;
 </script>
 
 <style scoped lang="less">
-@color: purple;
 .color-purple {
-  color: @color;
   .font-bold();
   font-size: @font-size-lg;
-}
-.color-green {
-  color: @color-green;
 }
 .logo {
   width: 50px;

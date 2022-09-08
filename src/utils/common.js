@@ -11,5 +11,11 @@ export default {
     if ([0].includes(code)) {
       return true;
     }
+  },
+  /**
+   * 获取assets路径
+   */
+  getAssetsSrc(src) {
+    return new URL(`../assets/${src}`, import.meta.url)
   }
 }

@@ -30,9 +30,9 @@
       </a-menu>
     </a-layout-sider>
     <a-layout style="padding: 24px">
-      <keep-alive>
-        <component :is="activeExample" />
-      </keep-alive>
+      <!-- <keep-alive> -->
+      <component :is="activeExample" :key="selectedKeys[0]" />
+      <!-- </keep-alive> -->
     </a-layout>
   </a-layout>
 </template>

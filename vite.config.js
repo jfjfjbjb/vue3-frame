@@ -29,13 +29,14 @@ export default defineConfig(({ command, mode }) => {
       }),
       svgLoader(),
       Components({
+        include: [/\.vue$/, /\.vue\?vue/, /\.jsx$/],
         resolvers: [
           AntDesignVueResolver({
             importStyle: false,
             resolveIcons: true
           })
         ]
-      }),
+      })
       // requireTransform({
       //   // fileRegex: /.ts$|.tsx$|.vue$/
       //   fileRegex: /.js$|.jsx$|.vue$/
