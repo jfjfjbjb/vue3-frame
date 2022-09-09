@@ -89,12 +89,16 @@
 </template>
 
 <script lang="jsx" setup>
+/* eslint-disable no-unused-vars */
 import { reactive, ref, computed, onMounted } from 'vue';
 import { useCounterStore } from '@/stores/counter';
 import OceanbaseIcon from '@/assets/oceanbase.svg?component';
 import config from './config.jsx';
 import importSrc from '@/assets/M.png';
 // const { proxy } = getCurrentInstance();
+defineOptions({
+  name: 'Playground'
+});
 const uc = useCounterStore();
 const self = {};
 // refs

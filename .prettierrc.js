@@ -3,5 +3,5 @@ module.exports = {
   "singleQuote": true,
   "trailingComma": "none",
   "quoteProps": "consistent",
-  "printWidth": 120
+  "printWidth": 80
 }

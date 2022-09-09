@@ -3,7 +3,6 @@
     class="custom-input"
     v-bind="attrs"
     :value="modelValue"
-    @input="onInput"
   ></a-input>
 </template>
 
@@ -22,7 +21,7 @@ const emit = defineEmits(['update:modelValue']);
 
 /** computed */
 const attrs = computed(() => {
-  return Object.assign({}, defaultAttrs, useAttrs());
+  return Object.assign({}, defaultAttrs, useAttrs(), { input: onInput });
 });
 
 /** methods */

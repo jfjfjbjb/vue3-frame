@@ -8,6 +8,7 @@ import postcssPresetEnv from 'postcss-preset-env';
 import { viteMockServe } from 'vite-plugin-mock';
 import Components from 'unplugin-vue-components/vite';
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers';
+import DefineOptions from 'unplugin-vue-define-options/vite';
 import svgLoader from 'vite-svg-loader';
 import commonjs from 'vite-plugin-commonjs';
 // 引入theme
@@ -38,6 +39,7 @@ export default defineConfig(({ command, mode }) => {
           })
         ]
       }),
+      DefineOptions(),
       commonjs()
     ],
     resolve: {

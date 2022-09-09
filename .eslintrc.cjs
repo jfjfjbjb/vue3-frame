@@ -24,6 +24,7 @@ module.exports = {
   },
   globals: {
     require: 'writable',
+    defineOptions: 'readonly',
     _: 'readonly',
     $config: 'readonly',
     $bus: 'readonly',

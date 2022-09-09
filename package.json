@@ -32,6 +32,7 @@
     "postcss-preset-env": "^7.8.0",
     "prettier": "^2.7.1",
     "unplugin-vue-components": "^0.22.4",
+    "unplugin-vue-define-options": "^0.11.2",
     "vite": "^3.0.4",
     "vite-plugin-commonjs": "^0.5.2",
     "vite-plugin-eslint": "^1.8.1",
