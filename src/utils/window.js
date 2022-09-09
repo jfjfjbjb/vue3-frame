@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import { message, notification } from 'ant-design-vue';
+// 局部引入时请打开样式
 // import 'ant-design-vue/es/message/style/index.less';
 // import 'ant-design-vue/es/notification/style/index.less';
 import event from '@/utils/event';
