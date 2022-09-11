@@ -2,7 +2,9 @@
   <div class="example-content example-playground">
     <div class="examples">
       <a-card hoverable title="图片使用" id="example-playground-imgs">
-        <img alt="Vue logo" class="logo" src="@/assets/M.png" />
+        <a-divider style="margin-top: 0;" :plain="true" orientation="left">基础图片</a-divider>
+        【<img alt="Vue logo" class="logo" src="@/assets/M.png" />
+        <img alt="Vue logo" class="logo" src="@/assets/js.jpeg" />】
         <img alt="Vue logo" class="logo" :src="importSrc" />
         <img alt="Vue logo" class="logo" :src="dynamicSrc" />
         <img alt="Vue logo" class="logo" src="@/assets/oceanbase.svg?url" />
@@ -10,9 +12,9 @@
         <div class="bg-img"></div>
         <!-- suggest -->
         <ul class="g-suggest">
-          <li>src="@/assets/M.png"</li>
+          <li>src="@/assets/M.png" | @/assets/js.jpeg</li>
           <li>import importSrc from '@/assets/M.png';</li>
-          <li>const dynamicSrc = $common.getAssetUrl('M.png');</li>
+          <li>const { href: dynamicSrc } = $common.getAssetUrl('M.png');</li>
           <li>【svg图片使用】src="@/assets/oceanbase.svg?url"</li>
           <li>
             【svg组件使用】import OceanbaseIcon from
@@ -21,6 +23,14 @@
           </li>
           <li>background-image: url('@/assets/oceanbase.svg');</li>
         </ul>
+        <a-divider :plain="true" orientation="left">可预览图片</a-divider>
+        <div>
+          <a-image-preview-group>
+            <a-image :width="50" src="https://aliyuncdn.antdv.com/vue.png" />
+            <a-image :width="50" src="https://aliyuncdn.antdv.com/logo.png" />
+            <a-image :width="50" :src="dynamicSrc" />
+          </a-image-preview-group>
+        </div>
       </a-card>
 
       <a-card hoverable title="jsx使用" id="example-playground-jsx">
@@ -102,7 +112,7 @@ defineOptions({
 const uc = useCounterStore();
 const self = {};
 // refs
-const dynamicSrc = $common.getAssetUrl('M.png');
+const { href: dynamicSrc } = $common.getAssetUrl('M.png');
 const state = reactive({ count: 0 });
 const cfg = reactive(config(self));
 const date = ref();
