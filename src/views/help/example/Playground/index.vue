@@ -75,7 +75,7 @@
         <div>
           <custom-input
             style="width: 200px"
-            v-model="inputValue"
+            v-model:value="inputValue"
             placeholder="默认placeholder"
             v-bind="inputAttrs"
           />

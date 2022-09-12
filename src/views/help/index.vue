@@ -4,13 +4,13 @@
       :class="[themeTrans && 'g-ignore-ani']"
       v-model:collapsed="collapsed"
       collapsible
-      :theme="theme"
+      :theme="activeTheme"
     >
       <div class="logo ani-shiny" @click="onChangeTheme"><Logo /></div>
       <a-menu
         v-model:openKeys="openKeys"
         v-model:selectedKeys="selectedKeys"
-        :theme="theme"
+        :theme="activeTheme"
         mode="inline"
         @click="onClick"
       >
@@ -30,10 +30,12 @@
       </a-menu>
     </a-layout-sider>
     <a-layout style="padding: 24px">
-      <!-- keep-alive本地开发热更新报错，还未解决 https://github.com/vuejs/core/issues/6222 -->
-      <keep-alive>
-        <component :is="activeExample" :key="selectedKeys[0]" />
-      </keep-alive>
+      <Transition>
+        <!-- keep-alive本地开发热更新报错，还未解决 https://github.com/vuejs/core/issues/6222 -->
+        <keep-alive>
+          <component :is="activeExample" :key="selectedKeys[0]" />
+        </keep-alive>
+      </Transition>
       <!-- <component :is="activeExample" :key="selectedKeys[0]" /> -->
     </a-layout>
   </a-layout>
@@ -45,6 +47,8 @@ import { ref, computed, nextTick } from 'vue';
 import Logo from '@/assets/logo.svg?component';
 // import { FireOutlined } from '@ant-design/icons-vue';
 import exampleComps from './example';
+import { useThemeStore } from '@/stores/theme';
+const themeStore = useThemeStore();
 
 // data
 const theme = ref('dark');
@@ -76,6 +80,9 @@ const example = ref({
 // computed
 const activeExample = computed(() => {
   return exampleComps[selectedKeys.value[0]];
+});
+const activeTheme = computed(() => {
+  return themeStore.theme.includes('dark') ? 'dark' : theme.value;
 });
 
 // methods
@@ -119,6 +126,27 @@ function onChangeTheme() {
       }
     }
   }
+}
+
+// transition
+@delay: 0.4s;
+// .v-enter-from{
+// }
+.v-enter-active {
+  transition: all 0.1s ease @delay;
+  // opacity: 0;
+  display: none;
+}
+.v-enter-to {
+  // opacity: 1;
+}
+
+.v-leave-active {
+  transition: all @delay ease;
+}
+.v-leave-to {
+  transform: translateX(20px);
+  opacity: 0;
 }
 </style>
 

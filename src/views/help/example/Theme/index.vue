@@ -51,6 +51,8 @@
 import { ref, reactive } from 'vue';
 import { ConfigProvider } from 'ant-design-vue';
 import { changeTheme } from '@/style/theme';
+import { useThemeStore } from '@/stores/theme';
+const themeStore = useThemeStore();
 
 // data
 const currTheme = ref('compact');
@@ -65,9 +67,11 @@ const colorState = reactive({
 // methods
 function onChangeTheme(e) {
   changeTheme(e.target.value);
+  // store
+  themeStore.setTheme(e.target.value);
 }
-function onChangeColor(type, e) {
-  Object.assign(colorState, { [type]: e.target.value });
+function onChangeColor(type, value) {
+  Object.assign(colorState, { [type]: value });
   ConfigProvider.config({
     theme: colorState
   });

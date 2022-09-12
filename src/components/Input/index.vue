@@ -1,9 +1,5 @@
 <template>
-  <a-input
-    class="custom-input"
-    v-bind="attrs"
-    :value="modelValue"
-  ></a-input>
+  <a-input class="custom-input" v-bind="attrs" :value="value"></a-input>
 </template>
 
 <script setup>
@@ -12,33 +8,38 @@ const defaultAttrs = {
   placeholder: '请输入'
 };
 
+defineOptions({
+  inheritAttrs: false
+});
+
 /** props */
 const props = defineProps({
-  modelValue: String
+  value: String
 });
 /** emit */
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:value', 'input']);
 
 /** computed */
 const attrs = computed(() => {
-  return Object.assign({}, defaultAttrs, useAttrs(), { input: onInput });
+  return Object.assign({}, defaultAttrs, useAttrs(), { onInput: onInput });
 });
 
 /** methods */
-const onInput = function($event) {
-  emit('update:modelValue', $event.target.value);
-}
+const onInput = function ($event) {
+  emit('update:value', $event.target.value);
+  emit('input', $event.target.value);
+};
 
 /** watch */
 watch(
-  () => props.modelValue,
+  () => props.value,
   (newVal, oldVal) => {
     if (newVal !== oldVal) {
       console.log('input newVal:', newVal);
     }
   },
   {
-    // immediate: true
+    immediate: true
   }
 );
 </script>
