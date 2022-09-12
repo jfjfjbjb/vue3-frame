@@ -26,6 +26,7 @@
           <a-radio value="variable">默认【该模式可调主题色】</a-radio>
           <a-radio value="dark">暗黑</a-radio>
           <a-radio value="compact">紧凑</a-radio>
+          <a-radio value="dark-compact">暗黑-紧凑</a-radio>
         </a-radio-group>
       </div>
     </a-card>

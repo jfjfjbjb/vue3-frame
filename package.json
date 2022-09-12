@@ -7,7 +7,8 @@
     "build": "vite build",
     "preview": "vite preview --port 4173",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --ignore-path .gitignore",
-    "lint-fix": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
+    "lint-fix": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
+    "theme": "sh ./script/theme/index.sh"
   },
   "dependencies": {
     "@ant-design/icons-vue": "^6.1.0",
@@ -28,6 +29,7 @@
     "eslint": "^8.23.0",
     "eslint-plugin-vue": "^9.3.0",
     "less": "^3.7.1",
+    "less-plugin-clean-css": "^1.5.1",
     "postcss": "^8.4.16",
     "postcss-preset-env": "^7.8.0",
     "prettier": "^2.7.1",
