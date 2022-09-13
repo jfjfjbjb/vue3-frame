@@ -5,6 +5,7 @@ import App from './App.vue';
 import components from './components/index';
 import config from './config';
 import wins, { winRegister, winKeys } from './utils/window';
+import './utils/clipboard';
 // antd样式全量引入，可以支持本地换肤
 // import 'ant-design-vue/dist/antd.variable.less';
 import './style/index.less';

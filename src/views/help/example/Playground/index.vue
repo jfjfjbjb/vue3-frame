@@ -2,7 +2,9 @@
   <div class="example-content example-playground">
     <div class="examples">
       <a-card hoverable title="图片使用" id="example-playground-imgs">
-        <a-divider style="margin-top: 0;" :plain="true" orientation="left">基础图片</a-divider>
+        <a-divider style="margin-top: 0" :plain="true" orientation="left"
+          >基础图片</a-divider
+        >
         【<img alt="Vue logo" class="logo" src="@/assets/M.png" />
         <img alt="Vue logo" class="logo" src="@/assets/js.jpeg" />】
         <img alt="Vue logo" class="logo" :src="importSrc" />
@@ -80,6 +82,10 @@
             v-bind="inputAttrs"
           />
           <a-button @click="onCompTest">修改placeholder</a-button>
+          <a-button @click="onCopy">复制【$common.copy】</a-button>
+          <a-button class="clipboard" :data-clipboard-text="inputValue"
+            >复制【clipboard】</a-button
+          >
           <div>{{ inputValue }}</div>
         </div>
       </a-card>
@@ -146,6 +152,9 @@ function onTestPlus() {
 }
 function onCompTest() {
   inputAttrs.value.placeholder = '修改后' + Math.random().toFixed(2);
+}
+function onCopy() {
+  $common.copy(inputValue.value);
 }
 function logDate(e) {
   window.$message.success(date.value);

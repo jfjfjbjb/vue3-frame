@@ -44,7 +44,11 @@ export default {
 export function changeTheme(theme) {
   let link = document.getElementById('dynamic-theme');
   if(link) {
+    document.body.classList.add('g-ignore-ani');
     link.href = `./theme/antd.${theme}.min.css`;
+    setTimeout(() => {
+      document.body.classList.remove('g-ignore-ani');
+    }, 50)
   }
 }
 

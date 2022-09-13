@@ -4,13 +4,13 @@
       :class="[themeTrans && 'g-ignore-ani']"
       v-model:collapsed="collapsed"
       collapsible
-      :theme="activeTheme"
+      :theme="theme"
     >
       <div class="logo ani-shiny" @click="onChangeTheme"><Logo /></div>
       <a-menu
         v-model:openKeys="openKeys"
         v-model:selectedKeys="selectedKeys"
-        :theme="activeTheme"
+        :theme="theme"
         mode="inline"
         @click="onClick"
       >
@@ -43,7 +43,7 @@
 
 <script setup>
 // eslint-disable-next-line no-unused-vars
-import { ref, computed, nextTick } from 'vue';
+import { ref, computed, watch } from 'vue';
 import Logo from '@/assets/logo.svg?component';
 // import { FireOutlined } from '@ant-design/icons-vue';
 import exampleComps from './example';
@@ -81,9 +81,6 @@ const example = ref({
 const activeExample = computed(() => {
   return exampleComps[selectedKeys.value[0]];
 });
-const activeTheme = computed(() => {
-  return themeStore.theme.includes('dark') ? 'dark' : theme.value;
-});
 
 // methods
 function onClick({ item, key, keyPath }) {
@@ -91,10 +88,27 @@ function onClick({ item, key, keyPath }) {
 }
 function onChangeTheme() {
   themeTrans.value = true;
-  theme.value = theme.value === 'dark' ? 'light' : 'dark';
+  theme.value = themeStore.theme.includes('dark')
+    ? 'dark'
+    : theme.value === 'dark'
+    ? 'light'
+    : 'dark';
   setTimeout(() => {
     themeTrans.value = false;
   });
+
+  // watch
+  watch(
+    () => themeStore.theme,
+    (newVal, oldVal) => {
+      if (newVal && newVal.includes('dark')) {
+        theme.value = 'dark';
+      }
+    },
+    {
+      immediate: true
+    }
+  );
 }
 </script>
 
@@ -113,7 +127,6 @@ function onChangeTheme() {
     }
   }
 
-  // 测试deep；后续theme的切换请使用less变量的方式
   :deep(.ant-layout-sider) {
     &.ant-layout-sider-light {
       .logo {
