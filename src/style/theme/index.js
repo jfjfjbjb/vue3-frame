@@ -47,30 +47,7 @@ export default {
 
 /**
  * 切换theme
- * -- 目前采取全量引入theme，通过disabled切换【网速慢首次白屏会长】
- */
-export function changeTheme(theme) {
-  let links = document.getElementsByName('dynamic-theme');
-  let activeLink = document.getElementById(`dynamic-theme-${theme}`);
-  // 禁用动画
-  document.body.classList.add('g-ignore-ani');
-
-  // 切换
-  activeLink.removeAttribute('disabled');
-  setTimeout(() => {
-    links.forEach((item) => {
-      if (item.id !== `dynamic-theme-${theme}`) {
-        item.setAttribute('disabled', true);
-      }
-    });
-    // 重新开启动画
-    document.body.classList.remove('g-ignore-ani');
-  }, 50);
-}
-
-/**
- * 切换theme
- * -- 动态切换link【网速慢效果不佳】
+ * -- 动态切换link
  */
 function insterAfter(targetElement, newElement) {
   var parent = targetElement.parentNode;
@@ -80,7 +57,7 @@ function insterAfter(targetElement, newElement) {
     parent.insertBefore(newElement, targetElement.nextSibling);
   }
 }
-export function changeThemeDynamic(theme) {
+export function changeTheme(theme) {
   let link = document.getElementById('dynamic-theme');
   let head = document.getElementsByTagName('head')[0];
   if (link) {
@@ -113,6 +90,29 @@ export function changeThemeDynamic(theme) {
     };
     insterAfter(link, newLink);
   }
+}
+
+/**
+ * 切换theme
+ * -- 全量引入theme，通过disabled切换
+ */
+ export function changeThemeByFull(theme) {
+  let links = document.getElementsByName('dynamic-theme');
+  let activeLink = document.getElementById(`dynamic-theme-${theme}`);
+  // 禁用动画
+  document.body.classList.add('g-ignore-ani');
+
+  // 切换
+  activeLink.removeAttribute('disabled');
+  setTimeout(() => {
+    links.forEach((item) => {
+      if (item.id !== `dynamic-theme-${theme}`) {
+        item.setAttribute('disabled', true);
+      }
+    });
+    // 重新开启动画
+    document.body.classList.remove('g-ignore-ani');
+  }, 50);
 }
 
 // 去除color属性
