@@ -1,5 +1,8 @@
 /* eslint-disable no-undef */
-import { compactThemeSingle, getThemeVariables } from 'ant-design-vue/dist/theme';
+import {
+  compactThemeSingle,
+  getThemeVariables
+} from 'ant-design-vue/dist/theme';
 // 设置require.resolve，否则无法执行getThemeVariables
 const g = globalThis;
 if (g.require == null) {
@@ -35,20 +38,55 @@ export default {
   'compact': compactThemeSingle,
   // 暗黑、暗黑紧凑【不可换肤】
   'dark': getThemeVariables({ dark: true }),
-  'dark-compact': Object.assign({}, getThemeVariables({ dark: true }), compactThemeSingle)
+  'dark-compact': Object.assign(
+    {},
+    getThemeVariables({ dark: true }),
+    compactThemeSingle
+  )
 };
 
 /**
- * 切换theme 
+ * 切换theme
  */
+function insterAfter(targetElement, newElement) {
+  var parent = targetElement.parentNode;
+  if (parent.lastChild == targetElement) {
+    parent.appendChild(newElement);
+  } else {
+    parent.insertBefore(newElement, targetElement.nextSibling);
+  }
+}
 export function changeTheme(theme) {
   let link = document.getElementById('dynamic-theme');
-  if(link) {
+  let head = document.getElementsByTagName('head')[0];
+  if (link) {
+    const url = `./theme/antd.${theme}.min.css`;
+    // 禁用动画
     document.body.classList.add('g-ignore-ani');
-    link.href = `./theme/antd.${theme}.min.css`;
-    setTimeout(() => {
+    // 创建新样式，追加到link后面
+    let newLink = document.createElement('link');
+    newLink.setAttribute('type', 'text/css');
+    newLink.setAttribute('rel', 'stylesheet');
+    newLink.setAttribute('href', url);
+    newLink.onload = newLink.readystatechange = function () {
+      if (!newLink.readyState || /loaded|complete/.test(newLink.readyState)) {
+        // 替换
+        head.removeChild(link);
+        newLink.setAttribute('id', 'dynamic-theme');
+        // 重新开启动画
+        setTimeout(() => {
+          document.body.classList.remove('g-ignore-ani');
+        }, 50);
+      }
+    };
+    newLink.onerror = function () {
+      console.error('change theme error:', url);
+      // 删除newlink
+      head.removeChild(newLink);
+      // 重新开启动画
       document.body.classList.remove('g-ignore-ani');
-    }, 50)
+    };
+    insterAfter(link, newLink);
   }
 }
 
