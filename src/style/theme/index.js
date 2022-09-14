@@ -47,6 +47,8 @@ export default {
 
 /**
  * 切换theme
+ * -- 目前采取的是动态切换link标签
+ * -- 也可以在index.html全量引入theme，通过disabled切换
  */
 function insterAfter(targetElement, newElement) {
   var parent = targetElement.parentNode;
@@ -81,6 +83,7 @@ export function changeTheme(theme) {
     };
     newLink.onerror = function () {
       console.error('change theme error:', url);
+      $message.error('主题切换失败，请检查网络！');
       // 删除newlink
       head.removeChild(newLink);
       // 重新开启动画

@@ -18,7 +18,7 @@
     <a-card hoverable title="线上切换">
       <a-alert type="info" showIcon>
         <template #message>
-          <div>目前开启了该模式，本系统采取了动态修改link.href，未采用官方推荐global-config方式</div>
+          <div>目前开启了该模式，本系统采取了动态修改link，未采用官方推荐global-config方式</div>
         </template>
       </a-alert>
       <div class="dynamic-operate">
