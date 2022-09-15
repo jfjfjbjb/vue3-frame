@@ -1,11 +1,15 @@
 <template>
   <a-config-provider :locale="locale">
+    <!-- 统一empty -->
     <template #renderEmpty>
       <custom-empty></custom-empty>
     </template>
+    <!-- router -->
     <div id="entry">
       <RouterView />
     </div>
+    <!-- back-top -->
+    <a-back-top style="right: 20px" />
   </a-config-provider>
 </template>
 
@@ -20,6 +24,11 @@ const locale = ref(zhCN);
 // life circle
 onMounted(() => {
   console.log('App Loaded!!');
+  
+  // resize
+  window.addEventListener('resize', (e) => {
+    $bus.emit('window-resize', e);
+  });
 });
 </script>
 
