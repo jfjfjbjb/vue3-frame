@@ -125,20 +125,21 @@ export function changeTheme(theme) {
     setTimeout(() => {
       excute();
     }, 50);
-  } else {
-    activeLink.onload = activeLink.readystatechange = function () {
-      excute();
-      activeLink.setAttribute('loaded', true);
-    };
-
-    activeLink.onerror = function () {
-      console.error('change theme error:', theme);
-      $message.error('主题切换失败，请检查网络！');
-      activeLink.setAttribute('disabled', true);
-      // 重新开启动画
-      document.body.classList.remove('g-ignore-ani');
-    };
   }
+
+  activeLink.onload = activeLink.readystatechange = function () {
+    console.log('loaded..........')
+    excute();
+    activeLink.setAttribute('loaded', true);
+  };
+
+  activeLink.onerror = function () {
+    console.error('change theme error:', theme);
+    $message.error('主题切换失败，请检查网络！');
+    activeLink.setAttribute('disabled', true);
+    // 重新开启动画
+    document.body.classList.remove('g-ignore-ani');
+  };
 }
 
 // 去除color属性
