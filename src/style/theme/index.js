@@ -48,7 +48,7 @@ export default {
 
 /**
  * 切换theme
- * -- 动态切换link
+ * -- 动态切换link【备用】
  */
 export function changeThemeBackup(theme) {
   let link = document.getElementById('dynamic-theme');
@@ -72,18 +72,18 @@ export function changeThemeBackup(theme) {
     newLink.setAttribute('rel', 'stylesheet');
     newLink.setAttribute('href', url);
     newLink.onload = newLink.readystatechange = function () {
-      if (!newLink.readyState || /loaded|complete/.test(newLink.readyState)) {
-        // 替换
-        head.removeChild(link);
-        newLink.setAttribute('id', 'dynamic-theme');
-        // 重新开启动画
-        setTimeout(() => {
-          document.body.classList.remove('g-ignore-ani');
-        }, 50);
-      }
+      // if (!newLink.readyState || /loaded|complete/.test(newLink.readyState)) {
+      // 替换
+      head.removeChild(link);
+      newLink.setAttribute('id', 'dynamic-theme');
+      // 重新开启动画
+      setTimeout(() => {
+        document.body.classList.remove('g-ignore-ani');
+      }, 50);
+      // }
     };
     newLink.onerror = function () {
-      console.error('change theme error:', url);
+      console.error('change theme error:', theme);
       $message.error('主题切换失败，请检查网络！');
       // 删除newlink
       head.removeChild(newLink);
@@ -101,20 +101,44 @@ export function changeThemeBackup(theme) {
 export function changeTheme(theme) {
   let links = document.getElementsByName('dynamic-theme');
   let activeLink = document.getElementById(`dynamic-theme-${theme}`);
-  // 禁用动画
-  document.body.classList.add('g-ignore-ani');
-
+  // let oldActiveLink = document.querySelector(
+  //   '[name=dynamic-theme]:not([disabled])'
+  // );
   // 切换
-  activeLink.removeAttribute('disabled');
-  setTimeout(() => {
+  function excute() {
     links.forEach((item) => {
       if (item.id !== `dynamic-theme-${theme}`) {
         item.setAttribute('disabled', true);
       }
     });
     // 重新开启动画
-    document.body.classList.remove('g-ignore-ani');
-  }, 50);
+    setTimeout(() => {
+      document.body.classList.remove('g-ignore-ani');
+    }, 50);
+  }
+  // 禁用动画
+  document.body.classList.add('g-ignore-ani');
+
+  // 执行切换
+  activeLink.removeAttribute('disabled');
+  if (activeLink.getAttribute('loaded')) {
+    setTimeout(() => {
+      excute();
+    }, 50);
+  } else {
+    activeLink.onload = activeLink.readystatechange = function () {
+      excute();
+      activeLink.setAttribute('loaded', true);
+    };
+
+    activeLink.onerror = function () {
+      console.error('change theme error:', theme);
+      $message.error('主题切换失败，请检查网络！');
+      activeLink.setAttribute('disabled', true);
+      // 重新开启动画
+      document.body.classList.remove('g-ignore-ani');
+    };
+  }
 }
 
 // 去除color属性
