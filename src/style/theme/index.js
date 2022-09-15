@@ -48,9 +48,9 @@ export default {
 
 /**
  * 切换theme
- * -- 动态切换link【备用】
+ * -- 动态切换link
  */
-export function changeThemeBackup(theme) {
+export function changeTheme(theme) {
   let link = document.getElementById('dynamic-theme');
   let head = document.getElementsByTagName('head')[0];
   // 往目标节点后插入节点
@@ -96,9 +96,10 @@ export function changeThemeBackup(theme) {
 
 /**
  * 切换theme
- * -- 全量引入theme，通过disabled切换
+ * -- 全量引入theme，通过disabled切换【备用】
+ * -- ?? link内容有肯能丢失
  */
-export function changeTheme(theme) {
+export function changeThemeBackup(theme) {
   let links = document.getElementsByName('dynamic-theme');
   let activeLink = document.getElementById(`dynamic-theme-${theme}`);
   // let oldActiveLink = document.querySelector(
@@ -125,21 +126,21 @@ export function changeTheme(theme) {
     setTimeout(() => {
       excute();
     }, 50);
+  } else {
+    activeLink.onload = activeLink.readystatechange = function () {
+      console.log('theme loaded');
+      excute();
+      activeLink.setAttribute('loaded', true);
+    };
+
+    activeLink.onerror = function () {
+      console.error('change theme error:', theme);
+      $message.error('主题切换失败，请检查网络！');
+      activeLink.setAttribute('disabled', true);
+      // 重新开启动画
+      document.body.classList.remove('g-ignore-ani');
+    };
   }
-
-  activeLink.onload = activeLink.readystatechange = function () {
-    console.log('loaded..........')
-    excute();
-    activeLink.setAttribute('loaded', true);
-  };
-
-  activeLink.onerror = function () {
-    console.error('change theme error:', theme);
-    $message.error('主题切换失败，请检查网络！');
-    activeLink.setAttribute('disabled', true);
-    // 重新开启动画
-    document.body.classList.remove('g-ignore-ani');
-  };
 }
 
 // 去除color属性
