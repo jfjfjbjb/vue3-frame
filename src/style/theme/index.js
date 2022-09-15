@@ -30,7 +30,8 @@ export default {
   //   'border-radius-base': '4px', // 组件/浮层圆角
   //   'border-color-base': '#d9d9d9', // 边框色
   //   'box-shadow-base': '0 2px 8px rgba(0, 0, 0, 0.15)' // 浮层阴影
-  // },
+  // }
+
   // 默认、紧凑【可换肤】
   // -- 经测试：搭配开启main.js里'ant-design-vue/dist/antd.variable.less'，则默认可换肤
   // -- 也可以禁用modifyVars，使用官网推荐的variable.min.css
@@ -49,17 +50,18 @@ export default {
  * 切换theme
  * -- 动态切换link
  */
-function insterAfter(targetElement, newElement) {
-  var parent = targetElement.parentNode;
-  if (parent.lastChild == targetElement) {
-    parent.appendChild(newElement);
-  } else {
-    parent.insertBefore(newElement, targetElement.nextSibling);
-  }
-}
-export function changeTheme(theme) {
+export function changeThemeBackup(theme) {
   let link = document.getElementById('dynamic-theme');
   let head = document.getElementsByTagName('head')[0];
+  // 往目标节点后插入节点
+  function insterAfter(targetElement, newElement) {
+    var parent = targetElement.parentNode;
+    if (parent.lastChild == targetElement) {
+      parent.appendChild(newElement);
+    } else {
+      parent.insertBefore(newElement, targetElement.nextSibling);
+    }
+  }
   if (link) {
     const url = `./theme/antd.${theme}.min.css`;
     // 禁用动画
@@ -96,7 +98,7 @@ export function changeTheme(theme) {
  * 切换theme
  * -- 全量引入theme，通过disabled切换
  */
- export function changeThemeByFull(theme) {
+export function changeTheme(theme) {
   let links = document.getElementsByName('dynamic-theme');
   let activeLink = document.getElementById(`dynamic-theme-${theme}`);
   // 禁用动画
