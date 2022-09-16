@@ -53,6 +53,7 @@ export default {
 export function changeTheme(theme) {
   let link = document.getElementById('dynamic-theme');
   let head = document.getElementsByTagName('head')[0];
+  let app = document.getElementById('app');
   let timeout = null;
   const msgKey = 'change_theme_key';
   // 往目标节点后插入节点
@@ -78,7 +79,7 @@ export function changeTheme(theme) {
     }, 200);
     const url = `./theme/antd.${theme}.min.css`;
     // 禁用动画
-    document.body.classList.add('g-ignore-ani');
+    app.classList.add('g-ignore-ani');
     // 创建新样式，追加到link后面
     let newLink = document.createElement('link');
     newLink.setAttribute('type', 'text/css');
@@ -92,7 +93,7 @@ export function changeTheme(theme) {
       newLink.setAttribute('id', 'dynamic-theme');
       // 重新开启动画
       setTimeout(() => {
-        document.body.classList.remove('g-ignore-ani');
+        app.classList.remove('g-ignore-ani');
         $message.success({ content: '切换成功！', key: msgKey });
       }, 50);
       // }
@@ -102,7 +103,7 @@ export function changeTheme(theme) {
       // 删除newlink
       head.removeChild(newLink);
       // 重新开启动画
-      document.body.classList.remove('g-ignore-ani');
+      app.classList.remove('g-ignore-ani');
       console.error('change theme error:', theme);
       $message.error({ content: '主题切换失败，请检查网络！', key: msgKey });
     };
@@ -113,11 +114,12 @@ export function changeTheme(theme) {
 /**
  * 切换theme
  * -- 全量引入theme，通过disabled切换【备用】
- * -- ?? link内容有肯能丢失
+ * -- ?? disabled的link内容有肯能丢失
  */
 export function changeThemeBackup(theme) {
   let links = document.getElementsByName('dynamic-theme');
   let activeLink = document.getElementById(`dynamic-theme-${theme}`);
+  let app = document.getElementById('app');
   // let oldActiveLink = document.querySelector(
   //   '[name=dynamic-theme]:not([disabled])'
   // );
@@ -130,11 +132,11 @@ export function changeThemeBackup(theme) {
     });
     // 重新开启动画
     setTimeout(() => {
-      document.body.classList.remove('g-ignore-ani');
+      app.classList.remove('g-ignore-ani');
     }, 50);
   }
   // 禁用动画
-  document.body.classList.add('g-ignore-ani');
+  app.classList.add('g-ignore-ani');
 
   // 执行切换
   activeLink.removeAttribute('disabled');
@@ -154,7 +156,7 @@ export function changeThemeBackup(theme) {
       $message.error('主题切换失败，请检查网络！');
       activeLink.setAttribute('disabled', true);
       // 重新开启动画
-      document.body.classList.remove('g-ignore-ani');
+      app.classList.remove('g-ignore-ani');
     };
   }
 }
