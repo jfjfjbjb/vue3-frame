@@ -1,13 +1,25 @@
 <template>
-  <div>
-    <h1>layout-root</h1>
-    <a-divider></a-divider>
-    <RouterView></RouterView>
+  <div class="layout-root">
+    <!-- 顶部布局 -->
+    <Top />
+    <!-- TODO -->
   </div>
 </template>
 
 <script lang="jsx" setup>
-import { RouterView } from 'vue-router';
+import Top from './subLayouts/Top/index.vue';
 </script>
 
 <style scoped lang="less"></style>
+<style lang="less">
+  .layout-root {
+    min-width: 800px;
+  }
+  .layout-sub {
+    min-height: 100vh;
+
+    .ant-layout-header {
+      padding: 0 24px;
+    }
+  }
+</style>

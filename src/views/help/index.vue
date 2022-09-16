@@ -7,7 +7,7 @@
       :theme="theme"
     >
       <div class="logo ani-shiny" @click="onChangeTheme"><Logo /></div>
-      <menu-outlined class="display-sm" @click.stop="onToggleMenu" />
+      <menu-outlined class="adpt-display-sm" @click.stop="onToggleMenu" />
       <a-menu
         :style="{ display: menuVisible ? 'block' : 'none' }"
         v-model:openKeys="openKeys"
@@ -137,7 +137,7 @@ function onToggleMenu() {
   menuVisible.value = !menuVisible.value;
 }
 function isMobile() {
-  return document.body.clientWidth <= 750;
+  return window.innerWidth < 750;
 }
 
 // watch
