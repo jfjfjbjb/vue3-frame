@@ -53,6 +53,8 @@ export default {
 export function changeTheme(theme) {
   let link = document.getElementById('dynamic-theme');
   let head = document.getElementsByTagName('head')[0];
+  let timeout = null;
+  const msgKey = 'change_theme_key';
   // 往目标节点后插入节点
   function insterAfter(targetElement, newElement) {
     var parent = targetElement.parentNode;
@@ -62,7 +64,18 @@ export function changeTheme(theme) {
       parent.insertBefore(newElement, targetElement.nextSibling);
     }
   }
+  // 清除切换loading
+  function clearLoading() {
+    if(timeout) {
+      clearTimeout(timeout);
+      timeout = null;
+    }
+  }
   if (link) {
+    // 延迟loading
+    timeout = setTimeout(() => {
+      $message.loading({ content: '拼命加载中...', key: msgKey, duration: 10 });
+    }, 200);
     const url = `./theme/antd.${theme}.min.css`;
     // 禁用动画
     document.body.classList.add('g-ignore-ani');
@@ -72,6 +85,7 @@ export function changeTheme(theme) {
     newLink.setAttribute('rel', 'stylesheet');
     newLink.setAttribute('href', url);
     newLink.onload = newLink.readystatechange = function () {
+      clearLoading();
       // if (!newLink.readyState || /loaded|complete/.test(newLink.readyState)) {
       // 替换
       head.removeChild(link);
@@ -79,16 +93,18 @@ export function changeTheme(theme) {
       // 重新开启动画
       setTimeout(() => {
         document.body.classList.remove('g-ignore-ani');
+        $message.success({ content: '切换成功！', key: msgKey });
       }, 50);
       // }
     };
     newLink.onerror = function () {
-      console.error('change theme error:', theme);
-      $message.error('主题切换失败，请检查网络！');
+      clearLoading();
       // 删除newlink
       head.removeChild(newLink);
       // 重新开启动画
       document.body.classList.remove('g-ignore-ani');
+      console.error('change theme error:', theme);
+      $message.error({ content: '主题切换失败，请检查网络！', key: msgKey });
     };
     insterAfter(link, newLink);
   }
