@@ -88,14 +88,23 @@
 </template>
 
 <script lang="jsx" setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { RouterView } from 'vue-router';
+import { changeTheme } from '@/style/theme';
+import { useThemeStore } from '@/stores/theme';
 
 // data
 const selectedKeys1 = ref(['2']);
 const selectedKeys2 = ref(['1']);
 const collapsed = ref(false);
 const openKeys = ref(['sub1']);
+
+// life circle
+onMounted(() => {
+  const themeStore = useThemeStore();
+  // 由于theme适配暂时只在help里完成，所以这里强制设置为compact
+  themeStore.theme.includes('dark') && changeTheme('compact');
+});
 </script>
 
 <style scoped lang="less">

@@ -5,7 +5,7 @@
       <custom-empty></custom-empty>
     </template>
     <!-- router -->
-    <div id="entry">
+    <div id="entry" :class="[theme]">
       <RouterView />
     </div>
     <!-- 蒙层 -->
@@ -19,16 +19,23 @@
 </template>
 
 <script lang="jsx" setup>
-import { ref, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import zhCN from 'ant-design-vue/es/locale/zh_CN';
 import dayjs from 'dayjs';
 import { winRegister, winKeys } from './utils/window';
 import 'dayjs/locale/zh-cn';
+import { useThemeStore } from './stores/theme';
 dayjs.locale('zh-cn');
 const locale = ref(zhCN);
 
 // data
 const maskVisible = ref(false);
+
+// computed
+const theme = computed(() => {
+  const themeStore = useThemeStore();
+  return `theme-${themeStore.theme || 'compact'}`;
+});
 
 // life circle
 onMounted(() => {
