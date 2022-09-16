@@ -42,12 +42,15 @@ onMounted(() => {
 
 // methods
 function showMask() {
+  let html = document.documentElement;
   maskVisible.value = true;
-  document.body.style.overflow = 'hidden';
+  document.querySelector('.entry-mask').style.top = html.scrollTop + 'px';
+  html.style.overflow = 'hidden';
 }
 function hideMask() {
+  let html = document.documentElement;
   maskVisible.value = false;
-  document.body.style.overflow = 'visible';
+  html.style.overflow = 'auto';
 }
 
 // expose
@@ -64,9 +67,9 @@ winRegister(winKeys.$ENTRY, exposeObj);
 .entry-mask {
   position: absolute;
   left: 0;
-  right: 0;
   top: 0;
-  bottom: 0;
+  width: 100%;
+  height: 100%;
   background: rgba(0, 0, 0, 0.05);
   cursor: not-allowed;
   z-index: @zindex-mask;
