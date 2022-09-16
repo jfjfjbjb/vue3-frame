@@ -44,7 +44,6 @@ onMounted(() => {
 function showMask() {
   let html = document.documentElement;
   maskVisible.value = true;
-  document.querySelector('.entry-mask').style.top = html.scrollTop + 'px';
   html.style.overflow = 'hidden';
 }
 function hideMask() {
@@ -65,7 +64,7 @@ winRegister(winKeys.$ENTRY, exposeObj);
 
 <style scoped lang="less">
 .entry-mask {
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   width: 100%;
