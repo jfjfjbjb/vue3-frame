@@ -21,3 +21,34 @@
     left: 200%;
   }
 }
+
+// 进度条-斑马纹
+.@{ani-prefix}-progress {
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 50%;
+    max-width: 600px;
+    height: 16px;
+    transform: translate(-50%, -50%);
+    background-image: repeating-linear-gradient(
+      45deg,
+      @primary-color 0%,
+      @primary-color 1%,
+      @primary-3 1%,
+      @primary-3 2%
+    );
+    // background-position: -2% 0;
+    background-size: 150%;
+    animation: slider 3s linear infinite;
+  }
+
+  @keyframes slider {
+    100% {
+      background-position: -100% 0;
+    }
+  }
+}

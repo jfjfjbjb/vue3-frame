@@ -27,7 +27,9 @@ export default (config = {}) => {
 // 后续扩展的全局属性，需要到eslintrc里设置global
 export const winKeys = {
   // 注册app实例 [main.js]
-  $ROOT: '$ROOT'
+  $ROOT: '$ROOT',
+  // 注册entry实例 [App.vue]
+  $ENTRY: '$ENTRY'
 };
 
 // window属性注册机
