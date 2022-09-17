@@ -3,7 +3,8 @@ import {
   // createWebHistory,
   createWebHashHistory
 } from 'vue-router';
-import Layout from '../layout/index.vue';
+import Layout from '@/layout/index.vue';
+import config from './config';
 
 const router = createRouter({
   // history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,17 +15,7 @@ const router = createRouter({
       name: 'root',
       component: Layout,
       redirect: '/help',
-      children: [
-        {
-          path: '/home',
-          name: 'home',
-          meta: {
-            desc: '首页',
-            navi: ['home']
-          },
-          component: () => import('../views/home/index.vue')
-        }
-      ]
+      children: [...config.routes]
     },
     {
       path: '/help',
