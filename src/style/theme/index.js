@@ -3,6 +3,8 @@ import {
   compactThemeSingle,
   getThemeVariables
 } from 'ant-design-vue/dist/theme';
+import { useThemeStore } from '@/stores/theme';
+
 // 设置require.resolve，否则无法执行getThemeVariables
 const g = globalThis;
 if (g.require == null) {
@@ -55,6 +57,7 @@ export function changeTheme(theme) {
   let head = document.getElementsByTagName('head')[0];
   let app = document.getElementById('app');
   let timeout = null;
+  const themeStore = useThemeStore();
   // const msgKey = 'change_theme_key';
   // 往目标节点后插入节点
   function insterAfter(targetElement, newElement) {
@@ -92,10 +95,12 @@ export function changeTheme(theme) {
       // 替换
       head.removeChild(link);
       newLink.setAttribute('id', 'dynamic-theme');
+      // store
+      themeStore.setTheme(theme);
       // 重新开启动画
       setTimeout(() => {
         app.classList.remove('g-ignore-ani');
-        $message.success({ content: '切换成功！' });
+        $message.success({ content: '切换成功！', duration: 1.5 });
       }, 50);
       // }
     };

@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { fileURLToPath, URL } from 'node:url';
 
 import { defineConfig } from 'vite';
@@ -14,11 +15,17 @@ import commonjs from 'vite-plugin-commonjs';
 // 引入theme
 // import theme from './src/style/theme';
 
+// 获取脚本参数
+const envTheme = process.env.npm_config_theme || '';
+
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
   // console.log(command, mode);
   return {
     base: './',
+    define: {
+      __THEME__: JSON.stringify(envTheme)
+    },
     plugins: [
       vue(),
       vueJsx(),
