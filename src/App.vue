@@ -29,7 +29,7 @@ dayjs.locale('zh-cn');
 const locale = ref(zhCN);
 
 // eslint-disable-next-line no-undef
-console.log('env.theme:', __THEME__);
+console.log('Env.theme:', __THEME__ || '--');
 
 // data
 const maskVisible = ref(false);

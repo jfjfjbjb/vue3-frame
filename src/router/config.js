@@ -1,10 +1,13 @@
+import _ from 'lodash';
+
 const routeTree = [
   {
     path: '/home',
     name: 'home',
     meta: {
       desc: '首页',
-      navi: ['home']
+      navi: ['home'],
+      icon: 'home-outlined'
     },
     component: () => import('@/views/home/index.vue')
   },
@@ -12,7 +15,8 @@ const routeTree = [
     path: 'null',
     name: 'config',
     meta: {
-      desc: '配置管理'
+      desc: '配置管理',
+      icon: 'setting-outlined'
     },
     children: [
       {
@@ -38,19 +42,20 @@ const routeTree = [
   }
 ];
 
-// 将routeTree转换为一维数组
+// 将routeTree转换
 const routes = [];
-function loop(list = []) {
+const routeMap = {};
+function loop(list = [], parent) {
   list.forEach((item) => {
+    parent && _.set(item, 'meta._parent', parent);
     routes.push(item);
+    routeMap[item.name] = item;
 
     if (item.children) {
-      loop(item.children);
+      loop(item.children, item);
     }
   });
 }
 loop(routeTree);
 
-export default {
-  routes
-};
+export { routes, routeMap };

@@ -4,7 +4,7 @@ import {
   createWebHashHistory
 } from 'vue-router';
 import Layout from '@/layout/index.vue';
-import config from './config';
+import { routes } from './config';
 
 const router = createRouter({
   // history: createWebHistory(import.meta.env.BASE_URL),
@@ -15,7 +15,7 @@ const router = createRouter({
       name: 'root',
       component: Layout,
       redirect: '/help',
-      children: [...config.routes]
+      children: [...routes]
     },
     {
       path: '/help',

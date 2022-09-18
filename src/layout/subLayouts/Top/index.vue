@@ -21,7 +21,8 @@
         v-model:collapsed="collapsed"
         collapsible
       >
-        <a-menu
+        <Menu />
+        <!-- <a-menu
           v-model:selectedKeys="selectedKeys2"
           v-model:openKeys="openKeys"
           mode="inline"
@@ -39,7 +40,7 @@
             </template>
             <a-menu-item key="configSystem">系统配置</a-menu-item>
           </a-sub-menu>
-        </a-menu>
+        </a-menu> -->
       </a-layout-sider>
       <a-layout style="padding: 0 24px 24px">
         <a-breadcrumb style="margin: 16px 0">
@@ -64,15 +65,12 @@
 
 <script lang="jsx" setup>
 import { ref, onMounted } from 'vue';
-import { RouterView, useRouter } from 'vue-router';
+import { RouterView } from 'vue-router';
 import { changeTheme } from '@/style/theme';
 import { useThemeStore } from '@/stores/theme';
-const router = useRouter();
+import Menu from '@/layout/menu/index.vue';
 
 // data
-// const selectedKeys1 = ref(['2']);
-const selectedKeys2 = ref(['home']);
-const openKeys = ref(['']);
 const collapsed = ref(false);
 
 // life circle
@@ -81,13 +79,6 @@ onMounted(() => {
   // 由于theme换肤暂时只在help里完成，所以这里强制设置为compact
   themeStore.theme.includes('dark') && changeTheme('compact');
 });
-
-// methods
-function onMenuClick({ item, key, keyPath }) {
-  router.push({
-    name: key
-  });
-}
 </script>
 
 <style scoped lang="less">
