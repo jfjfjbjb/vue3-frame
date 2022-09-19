@@ -6,8 +6,8 @@ const routeTree = [
     name: 'home',
     meta: {
       desc: '首页',
-      navi: ['home'],
-      icon: 'home-outlined'
+      icon: 'home-outlined',
+      navi: ['home']
     },
     component: () => import('@/views/home/index.vue')
   },
@@ -23,20 +23,22 @@ const routeTree = [
         path: '/config/system',
         name: 'configSystem',
         meta: {
-          desc: '系统配置',
-          navi: ['config', 'system'],
-          isEntry: true
+          desc: '系统配置'
+          // navi: ['config', 'configSystem'],
+          // isEntry: true
         },
-        component: () => import('@/views/config/system/index.vue')
-      },
-      {
-        path: '/config/system/add',
-        name: 'configSystemAdd',
-        meta: {
-          desc: '系统配置新增',
-          navi: ['config', 'system', 'systemAdd']
-        },
-        component: () => import('@/views/config/system/add/index.vue')
+        component: () => import('@/views/config/system/index.vue'),
+        includes: [
+          {
+            path: '/config/system/add',
+            name: 'configSystemAdd',
+            meta: {
+              desc: '新增'
+              // navi: ['config', 'configSystem', 'configSystemAdd']
+            },
+            component: () => import('@/views/config/system/add/index.vue')
+          }
+        ]
       }
     ]
   }
@@ -47,12 +49,28 @@ const routes = [];
 const routeMap = {};
 function loop(list = [], parent) {
   list.forEach((item) => {
+    // 设置_parent
     parent && _.set(item, 'meta._parent', parent);
+    // 设置isEntry
+    if (item.path !== 'null' && (!parent || item.includes)) {
+      _.set(item, 'meta.isEntry', true);
+    }
+    // 设置navi
+    if (!_.get(item, 'meta.navi')) {
+      _.set(
+        item,
+        'meta.navi',
+        parent ? [...parent.meta.navi, item.name] : [item.name]
+      );
+    }
     routes.push(item);
     routeMap[item.name] = item;
 
     if (item.children) {
       loop(item.children, item);
+    }
+    if (item.includes) {
+      loop(item.includes, item);
     }
   });
 }

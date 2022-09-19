@@ -12,7 +12,7 @@
   </a-menu>
 </template>
 <script>
-import { defineComponent, computed } from 'vue';
+import { defineComponent, ref, watch } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import SubMenu from './SubMenu.vue';
 import config from './config';
@@ -21,18 +21,26 @@ export default defineComponent({
   components: {
     'sub-menu': SubMenu
   },
-
+  props: {
+    collapsed: Boolean
+  },
   setup() {
     const router = useRouter();
     const route = useRoute();
+    let selectedKeys = ref([]);
+    let openKeys = ref([]);
 
-    // computed
-    const openKeys = computed(() => {
-      return getOpenKeys();
-    });
-    const selectedKeys = computed(() => {
-      return getSelectedKeys();
-    });
+    // watch
+    watch(
+      () => route,
+      (newVal, oldVal) => {
+        selectedKeys.value = getSelectedKeys(newVal);
+        openKeys.value = getOpenKeys(newVal);
+      },
+      {
+        immediate: true
+      }
+    );
 
     // methods
     function onMenuClick({ item, key, keyPath }) {
@@ -40,21 +48,24 @@ export default defineComponent({
         name: key
       });
     }
-    function getSelectedKeys() {
-      const parent = _.get(route, 'meta._parent');
-      if (!parent) {
+    function getSelectedKeys(route) {
+      const { meta = {} } = route;
+      const { _parent: parent } = meta;
+
+      if (meta.isEntry) {
         return [route.name];
       }
-      return [
-        (parent.children.find((item) => _.get(item, 'meta.isEntry')) || {}).name
-      ];
+      return [(parent || {}).name];
     }
-    function getOpenKeys() {
+    function getOpenKeys(route) {
       const keys = [];
+
       function recursion(route) {
-        const parent = _.get(route, 'meta._parent');
+        const { meta = {} } = route;
+        const { _parent: parent } = meta;
+
         if (parent) {
-          keys.push(parent.name);
+          parent.path === 'null' && keys.push(parent.name);
           recursion(parent);
         }
       }
