@@ -29,7 +29,8 @@ const routeTree = [
         path: '/config/system',
         name: 'configSystem',
         meta: {
-          desc: '系统配置'
+          desc: '系统配置',
+          keepAlive: true
           // navi: ['config', 'configSystem'],
           // isEntry: true
         },

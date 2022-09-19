@@ -5,7 +5,11 @@
 </template>
 
 <script setup>
-  import List from './list/index.vue';
+import List from './list/index.vue';
+
+defineOptions({
+  name: 'configSystem'
+});
 </script>
 
 <style scoped lang="less"></style>

@@ -58,7 +58,14 @@
             minHeight: '280px'
           }"
         >
-          <RouterView></RouterView>
+          <!-- keep-alive本地开发热更新报错，还未解决 https://github.com/vuejs/core/issues/6222 -->
+          <router-view v-slot="{ Component }">
+            <Transition>
+              <keep-alive :include="keepAliveIncludes">
+                <component :is="Component" />
+              </keep-alive>
+            </Transition>
+          </router-view>
         </a-layout-content>
       </a-layout>
     </a-layout>
@@ -86,6 +93,17 @@ const navis = computed(() => {
     })
     .filter((item) => item);
 });
+const keepAliveIncludes = computed(() => {
+  const res = (_.get(route, 'meta.navi') || []).map(key => {
+    const routeItem = routeMap[key];
+    if (routeItem && _.get(routeItem, 'meta.keepAlive')) {
+      return key;
+    }
+  }).filter(item => item);
+
+  return res;
+});
+
 
 // life circle
 onMounted(() => {
@@ -103,6 +121,27 @@ function toHelp() {
 </script>
 
 <style scoped lang="less">
+// transition
+@delay: 0.4s;
+// .v-enter-from{
+// }
+.v-enter-active {
+  transition: all 0.1s ease @delay;
+  // opacity: 0;
+  display: none;
+}
+.v-enter-to {
+  // opacity: 1;
+}
+
+.v-leave-active {
+  transition: all @delay ease;
+}
+.v-leave-to {
+  transform: translateX(20px);
+  opacity: 0;
+}
+
 .header {
   display: flex;
   justify-content: space-between;
