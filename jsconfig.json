@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    // "emitDecoratorMetadata": true,
+    // "experimentalDecorators": true,
+    "baseUrl": ".",
+    "jsx": "preserve",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  },
+  "exclude": ["node_modules", "dist"]
+}
