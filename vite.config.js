@@ -68,8 +68,6 @@ export default defineConfig(({ command, mode }) => {
         }
       }
     },
-    build: {
-      // assetsInlineLimit: 10000
-    }
+    build: {}
   };
 });

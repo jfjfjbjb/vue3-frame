@@ -25,6 +25,7 @@ import dayjs from 'dayjs';
 import { winRegister, winKeys } from './utils/window';
 import 'dayjs/locale/zh-cn';
 import { useThemeStore } from './stores/theme';
+import { GLOBAL } from './utils/event';
 dayjs.locale('zh-cn');
 const locale = ref(zhCN);
 
@@ -46,7 +47,7 @@ onMounted(() => {
 
   // resize
   window.addEventListener('resize', (e) => {
-    $bus.emit('window-resize', e);
+    $bus.emit(GLOBAL.WINDOW_RESIZE, e);
   });
 });
 

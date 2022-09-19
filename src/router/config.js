@@ -1,5 +1,11 @@
 import _ from 'lodash';
 
+/**
+ * 特殊属性说明
+ * -- navi：导航【如果不填，会自动生成】
+ * -- isEntry: 判断是否是菜单入口
+ * -- _parent: 父节点引用
+ */
 const routeTree = [
   {
     path: '/home',

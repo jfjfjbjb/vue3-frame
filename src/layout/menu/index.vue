@@ -24,7 +24,7 @@ export default defineComponent({
   props: {
     collapsed: Boolean
   },
-  setup() {
+  setup(props) {
     const router = useRouter();
     const route = useRoute();
     let selectedKeys = ref([]);
@@ -32,10 +32,12 @@ export default defineComponent({
 
     // watch
     watch(
-      () => route,
+      route,
       (newVal, oldVal) => {
         selectedKeys.value = getSelectedKeys(newVal);
-        openKeys.value = getOpenKeys(newVal);
+        if (!props.collapsed) {
+          openKeys.value = getOpenKeys(newVal);
+        }
       },
       {
         immediate: true

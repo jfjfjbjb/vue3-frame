@@ -1,6 +1,6 @@
 /**
  * 全局loading
- * （已注册于window，无需引入）
+ * （已注册于window.$loading，无需引入）
  */
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';

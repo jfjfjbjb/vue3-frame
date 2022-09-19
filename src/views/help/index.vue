@@ -50,6 +50,7 @@ import Logo from '@/assets/logo.svg?component';
 // import { FireOutlined } from '@ant-design/icons-vue';
 import exampleComps from './example';
 import { useThemeStore } from '@/stores/theme';
+import { GLOBAL } from '@/utils/event';
 const themeStore = useThemeStore();
 let resizeEvent = null;
 
@@ -89,13 +90,13 @@ const activeExample = computed(() => {
 // life circle
 onUnmounted(() => {
   if (resizeEvent) {
-    $bus.off('window-resize', resizeEvent);
+    $bus.off(GLOBAL.WINDOW_RESIZE, resizeEvent);
   }
 });
 onMounted(() => {
   // resize
   $bus.on(
-    'window-resize',
+    GLOBAL.WINDOW_RESIZE,
     (resizeEvent = (e) => {
       if (isMobile()) {
         if (menuVisible.value) {

@@ -1,6 +1,6 @@
 /**
  * 全局通用方法
- * （已注册于window，无需引入）
+ * （已注册于window.$common，无需引入）
  */
 export default {
   /**

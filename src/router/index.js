@@ -6,6 +6,9 @@ import {
 import Layout from '@/layout/index.vue';
 import { routes } from './config';
 
+/**
+ * 目前选用了createWebHashHistory，保证兼容性
+ */
 const router = createRouter({
   // history: createWebHistory(import.meta.env.BASE_URL),
   history: createWebHashHistory(),
