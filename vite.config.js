@@ -18,18 +18,22 @@ import { visualizer } from 'rollup-plugin-visualizer';
 
 // console.log(fileURLToPath(new URL('./src', import.meta.url)));
 // chunks相关
-const { pathname } = new URL('./node_modules', import.meta.url);
-const pathPrefix = pathname.replace(/^\//, '');
-const chunkIncludes = function(includes, path) {
+const chunkIncludes = function (includes, path) {
   let flag = false;
-  includes.forEach(item => {
-    if (path.startsWith(`${pathPrefix}/${item}/`)) {
+  includes.forEach((item) => {
+    const { pathname = '' } = new URL(
+      `./node_modules/${item}/`,
+      import.meta.url
+    );
+    const pathPrefix = pathname.replace(/^[/\\]/, '');
+
+    if (path.startsWith(pathPrefix)) {
       flag = true;
       return false;
     }
   });
   return flag;
-}
+};
 // 获取脚本参数
 const envTheme = process.env.npm_config_theme || '';
 
