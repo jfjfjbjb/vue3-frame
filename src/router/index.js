@@ -51,7 +51,7 @@ router.beforeEach(async (to, from) => {
   // 超过200ms，显示过度动画
   timeout = setTimeout(() => {
     $ENTRY.showMask();
-  }, 200);
+  }, 500);
 
   // 路由切换，canel上一个页面的请求
   window._axiosPromiseArr.forEach((cancel, index) => {

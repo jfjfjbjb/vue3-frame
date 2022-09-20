@@ -1,4 +1,5 @@
-import _ from 'lodash';
+import get from 'lodash/get';
+import set from 'lodash/set';
 
 /**
  * 特殊属性说明
@@ -57,14 +58,14 @@ const routeMap = {};
 function loop(list = [], parent) {
   list.forEach((item) => {
     // 设置_parent
-    parent && _.set(item, 'meta._parent', parent);
+    parent && set(item, 'meta._parent', parent);
     // 设置isEntry
     if (item.path !== 'null' && (!parent || item.includes)) {
-      _.set(item, 'meta.isEntry', true);
+      set(item, 'meta.isEntry', true);
     }
     // 设置navi
-    if (!_.get(item, 'meta.navi')) {
-      _.set(
+    if (!get(item, 'meta.navi')) {
+      set(
         item,
         'meta.navi',
         parent ? [...parent.meta.navi, item.name] : [item.name]

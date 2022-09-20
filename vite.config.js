@@ -12,15 +12,32 @@ import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers';
 import DefineOptions from 'unplugin-vue-define-options/vite';
 import svgLoader from 'vite-svg-loader';
 import commonjs from 'vite-plugin-commonjs';
+import { visualizer } from 'rollup-plugin-visualizer';
 // 引入theme
 // import theme from './src/style/theme';
 
+// console.log(fileURLToPath(new URL('./src', import.meta.url)));
+// chunks相关
+const { pathname } = new URL('./node_modules', import.meta.url);
+const pathPrefix = pathname.replace(/^\//, '');
+const chunkIncludes = function(includes, path) {
+  let flag = false;
+  includes.forEach(item => {
+    if (path.startsWith(`${pathPrefix}/${item}/`)) {
+      flag = true;
+      return false;
+    }
+  });
+  return flag;
+}
 // 获取脚本参数
 const envTheme = process.env.npm_config_theme || '';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
   // console.log(command, mode);
+  // 获取打包命令符
+  const lifecycle = process.env.npm_lifecycle_event;
   return {
     base: './',
     define: {
@@ -47,7 +64,11 @@ export default defineConfig(({ command, mode }) => {
         ]
       }),
       DefineOptions(),
-      commonjs()
+      commonjs(),
+      // 打包分析
+      lifecycle === 'report'
+        ? visualizer({ open: true, gzipSize: true, filename: 'report.html' })
+        : null
     ],
     resolve: {
       alias: {
@@ -68,6 +89,27 @@ export default defineConfig(({ command, mode }) => {
         }
       }
     },
-    build: {}
+    build: {
+      minify: 'terser',
+      terserOptions: {
+        compress: {
+          //生产环境时移除console
+          drop_console: true,
+          drop_debugger: true
+        }
+      },
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (chunkIncludes(['lodash', 'lodash-es'], id)) {
+              return 'lodash';
+            }
+            if (chunkIncludes(['vue', 'vue-router', 'pinia'], id)) {
+              return 'vue-base';
+            }
+          }
+        }
+      }
+    }
   };
 });

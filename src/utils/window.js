@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { message, notification } from 'ant-design-vue';
 // 局部引入时请打开样式
 // import 'ant-design-vue/es/message/style/index.less';
@@ -6,12 +5,20 @@ import { message, notification } from 'ant-design-vue';
 import event from '@/utils/event';
 import loading from '@/utils/loading';
 import common from '@/utils/common';
+// lodash局部引入
+import forEach from 'lodash/forEach';
+import get from 'lodash/get';
+import set from 'lodash/set';
 
 export default (config = {}) => {
   // config
   window.$config = config;
   // lodash
-  window._ = _;
+  window._ = {
+    forEach,
+    get,
+    set
+  };
   // global loading
   window.$loading = loading(config);
   // common
