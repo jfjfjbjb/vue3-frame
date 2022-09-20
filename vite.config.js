@@ -21,11 +21,15 @@ import { visualizer } from 'rollup-plugin-visualizer';
 const chunkIncludes = function (includes, path) {
   let flag = false;
   includes.forEach((item) => {
+    // const pathPrefix = fileURLToPath(
+    //   new URL(`./node_modules/${item}/`, import.meta.url)
+    // );
     const { pathname = '' } = new URL(
       `./node_modules/${item}/`,
       import.meta.url
     );
     const pathPrefix = pathname.replace(/^[/\\]/, '');
+    console.log(path, pathPrefix)
 
     if (path.startsWith(pathPrefix)) {
       flag = true;
