@@ -8,7 +8,13 @@ const http = axios.create({
 // Add a request interceptor
 http.interceptors.request.use(
   function (config) {
-    // Do something before request is sent
+    // 记录cancelToken，路由切换时取消
+    config.cancelToken = new axios.CancelToken((cancel) => {
+      window._axiosPromiseArr.push(cancel);
+      if (config.cancelHandler) {
+        config.cancelHandler(cancel);
+      }
+    });
     return config;
   },
   function (error) {

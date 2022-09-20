@@ -31,6 +31,8 @@ module.exports = {
     $loading: 'readonly',
     $common: 'readonly',
     $message: 'readonly',
-    $notification: 'readonly'
+    $notification: 'readonly',
+    $ROOT: 'readonly',
+    $ENTRY: 'readonly',
   }
 };

@@ -44,7 +44,9 @@ const getRes = ref();
 const onGetData = function () {
   // 获取请求
   loading.value = true;
-  apiGet({ a: 111 })
+  apiGet({ a: 111 }, (cancel) => {
+    console.log('取消函数：', cancel);
+  })
     .then((res) => {
       loading.value = false;
       if ($common.isSuccessCode(res)) {

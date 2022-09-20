@@ -39,4 +39,32 @@ const router = createRouter({
   ]
 });
 
+let timeout = null;
+// 用于存储请求，方便路由切换时统一取消
+// -- 不是提供给开发取用，所以没有走window.js逻辑
+window._axiosPromiseArr = [];
+
+/**
+ * 路由守卫
+ */
+router.beforeEach(async (to, from) => {
+  // 超过200ms，显示过度动画
+  timeout = setTimeout(() => {
+    $ENTRY.showMask();
+  }, 200);
+
+  // 路由切换，canel上一个页面的请求
+  window._axiosPromiseArr.forEach((cancel, index) => {
+    cancel && cancel();
+    delete window._axiosPromiseArr[index];
+  })
+});
+router.afterEach(async (to, from) => {
+  if (timeout) {
+    clearTimeout(timeout);
+    timeout = null;
+  }
+  $ENTRY.hideMask();
+});
+
 export default router;

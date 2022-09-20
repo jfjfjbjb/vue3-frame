@@ -1,10 +1,11 @@
 import http from '../utils/http';
 
-export function apiGet(params) {
+export function apiGet(params, cancelHandler) {
   return http({
     url: '/api/get',
     method: 'get',
-    params
+    params,
+    cancelHandler
   });
 }
 
