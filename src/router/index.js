@@ -48,7 +48,7 @@ window._axiosPromiseArr = [];
  * 路由守卫
  */
 router.beforeEach(async (to, from) => {
-  // 超过200ms，显示过度动画
+  // 延时显示过度动画
   timeout = setTimeout(() => {
     $ENTRY.showMask();
   }, 500);

@@ -18,20 +18,13 @@ import { visualizer } from 'rollup-plugin-visualizer';
 
 // console.log(fileURLToPath(new URL('./src', import.meta.url)));
 // chunks相关
+const { pathname = '' } = new URL('./node_modules', import.meta.url);
 const chunkIncludes = function (includes, path) {
   let flag = false;
   includes.forEach((item) => {
-    // const pathPrefix = fileURLToPath(
-    //   new URL(`./node_modules/${item}/`, import.meta.url)
-    // );
-    const { pathname = '' } = new URL(
-      `./node_modules/${item}/`,
-      import.meta.url
-    );
-    const pathPrefix = pathname.replace(/^[/\\]/, '');
-    console.log(path, pathPrefix)
-
-    if (path.startsWith(pathPrefix)) {
+    const pathPrefix = `${pathname}/${item}/`.replace(/^[/]?/, '');
+    // console.log(path, pathPrefix)
+    if (path.includes(pathPrefix)) {
       flag = true;
       return false;
     }
