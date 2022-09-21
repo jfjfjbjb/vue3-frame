@@ -20,7 +20,7 @@ export default {
 /**
  * 事件名称
  * -- GLOBAL：全局事件
- * -- ！其余事件名，也请统一存放处理
+ * -- ！其余事件名，也请统一处理
  */
 export const GLOBAL = {
   // window窗口变化

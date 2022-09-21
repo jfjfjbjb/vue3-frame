@@ -16,7 +16,6 @@ import { visualizer } from 'rollup-plugin-visualizer';
 // 引入theme
 // import theme from './src/style/theme';
 
-// console.log(fileURLToPath(new URL('./src', import.meta.url)));
 // chunks相关
 const { pathname = '' } = new URL('./node_modules', import.meta.url);
 const chunkIncludes = function (includes, path) {
@@ -31,14 +30,15 @@ const chunkIncludes = function (includes, path) {
   });
   return flag;
 };
+
+// 获取打包命令符
+const lifecycle = process.env.npm_lifecycle_event;
 // 获取脚本参数
 const envTheme = process.env.npm_config_theme || '';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
   // console.log(command, mode);
-  // 获取打包命令符
-  const lifecycle = process.env.npm_lifecycle_event;
   return {
     base: './',
     define: {

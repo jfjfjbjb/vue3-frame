@@ -108,7 +108,7 @@ const keepAliveIncludes = computed(() => {
 // life circle
 onMounted(() => {
   const themeStore = useThemeStore();
-  // 由于theme换肤暂时只在help里完成，所以这里强制设置为compact
+  // TEMP：由于theme换肤暂时只在help里完成，所以这里强制设置为compact
   themeStore.theme.includes('dark') && changeTheme('compact');
 });
 

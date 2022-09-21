@@ -1,11 +1,11 @@
-import get from 'lodash/get';
-import set from 'lodash/set';
+import _ from '@/utils/lodash';
 
 /**
- * 特殊属性说明
- * -- navi：导航【如果不填，会自动生成】
- * -- isEntry: 判断是否是菜单入口
- * -- _parent: 父节点引用
+ * meta属性说明
+ * -- navi：导航 【如果不填，会自动生成】
+ * -- isEntry: 判断是否是菜单入口 【自动生成】
+ * -- keepAlive：开启缓存
+ * -- _parent: 父节点引用 【自动生成】
  */
 const routeTree = [
   {
@@ -58,14 +58,14 @@ const routeMap = {};
 function loop(list = [], parent) {
   list.forEach((item) => {
     // 设置_parent
-    parent && set(item, 'meta._parent', parent);
+    parent && _.set(item, 'meta._parent', parent);
     // 设置isEntry
     if (item.path !== 'null' && (!parent || item.includes)) {
-      set(item, 'meta.isEntry', true);
+      _.set(item, 'meta.isEntry', true);
     }
     // 设置navi
-    if (!get(item, 'meta.navi')) {
-      set(
+    if (!_.get(item, 'meta.navi')) {
+      _.set(
         item,
         'meta.navi',
         parent ? [...parent.meta.navi, item.name] : [item.name]
