@@ -1,16 +1,40 @@
 import VNode from './VNode';
-import Input from './Input/index.vue';
-import Empty from './Empty/index.vue';
+const modules = import.meta.glob('./*/*.vue', { eager: true });
 
 /**
- * 组件集合，生成全局组件使用
+ * 解析glob动态引入的组件
  */
-export default {
-  VNode: {
-    _default: false,
-    name: 'VNode',
-    comp: VNode
-  },
-  Input,
-  Empty
-};
+function resolveModules(modules) {
+  const comps = {};
+  for (const key in modules) {
+    const nameMatch = key.match(/^\.\/([\s\S]+)\/.+/);
+    const _key = nameMatch != null ? nameMatch[1] : '';
+    comps[_key] = {
+      comp: modules[key].default
+    };
+  }
+  return comps;
+}
+
+export default function (app) {
+  const config = {
+    VNode: {
+      name: 'VNode',
+      comp: VNode
+    },
+    ...resolveModules(modules)
+  };
+  _.forEach(config, (item, key) => {
+    if (item.name) {
+      app.component(item.name, item.comp);
+      return;
+    }
+    // 默认生成类似：<custom-input />
+    app.component(
+      `custom${key.replace(/[A-Z]/g, ($0) => {
+        return '-' + $0.toLowerCase();
+      })}`,
+      item.comp
+    );
+  });
+}

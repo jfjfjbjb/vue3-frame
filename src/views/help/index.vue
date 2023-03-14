@@ -21,10 +21,22 @@
           <template #title>
             <span>
               <fire-outlined />
-              <span>公用示例</span>
+              <span>通用</span>
             </span>
           </template>
           <a-menu-item v-for="item in example.common" :key="item.key">{{
+            item.name
+          }}</a-menu-item>
+        </a-sub-menu>
+        <!-- component -->
+        <a-sub-menu key="component" @click.stop="() => {}">
+          <template #title>
+            <span>
+              <block-outlined />
+              <span>组件</span>
+            </span>
+          </template>
+          <a-menu-item v-for="item in example.component" :key="item.key">{{
             item.name
           }}</a-menu-item>
         </a-sub-menu>
@@ -34,9 +46,9 @@
     <a-layout style="padding: 24px">
       <Transition>
         <!-- keep-alive本地开发热更新报错，还未解决 https://github.com/vuejs/core/issues/6222 -->
-        <keep-alive>
-          <component :is="activeExample" :key="selectedKeys[0]" />
-        </keep-alive>
+        <!-- <keep-alive> -->
+        <component :is="activeExample" :key="selectedKeys[0]" />
+        <!-- </keep-alive> -->
       </Transition>
       <!-- <component :is="activeExample" :key="selectedKeys[0]" /> -->
     </a-layout>
@@ -46,7 +58,7 @@
 <script setup>
 // eslint-disable-next-line no-unused-vars
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue';
-import Logo from '@/assets/logo.svg?component';
+import Logo from '@/assets/img/logo.svg?component';
 // import { FireOutlined } from '@ant-design/icons-vue';
 import exampleComps from './example';
 import { useThemeStore } from '@/stores/theme';
@@ -58,33 +70,20 @@ let resizeEvent = null;
 const theme = ref('dark');
 const themeTrans = ref(false);
 const collapsed = ref(false);
-const openKeys = ref(['common']);
-const selectedKeys = ref(['Playground']);
 const menuVisible = ref(!isMobile());
-const example = ref({
-  common: [
-    {
-      key: 'Playground',
-      name: 'Playground'
-    },
-    {
-      key: 'Request',
-      name: 'Request'
-    },
-    {
-      key: 'Theme',
-      name: 'Theme'
-    }
-    // {
-    //   key: 'Form',
-    //   name: 'Form'
-    // }
-  ]
-});
+const example = ref({ ...exampleComps });
+const flatComps = Object.values(exampleComps).flat();
+const initMenuKey = sessionStorage.getItem('helpMenuKey') || 'Playground';
+const initOpenKey =
+  (flatComps.find((item) => item.key === initMenuKey) || {}).parent || 'common';
+const openKeys = ref([initOpenKey]);
+const selectedKeys = ref([initMenuKey]);
 
 // computed
 const activeExample = computed(() => {
-  return exampleComps[selectedKeys.value[0]];
+  const item =
+    flatComps.find((item) => item.key === selectedKeys.value[0]) || {};
+  return item.comp;
 });
 
 // life circle
@@ -125,6 +124,7 @@ function onChangeTheme() {
 }
 function onClick({ item, key, keyPath }) {
   console.log('onClick -> { item, key, keyPath }', { item, key, keyPath });
+  sessionStorage.setItem('helpMenuKey', key);
   if (isMobile()) {
     menuVisible.value = false;
   }

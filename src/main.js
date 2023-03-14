@@ -19,17 +19,6 @@ wins(config);
 winRegister(winKeys.$ROOT, app);
 
 // 注册全局组件
-_.forEach(components, (item, key) => {
-  if (item && item._default === false) {
-    app.component(item.name, item.comp);
-    return;
-  }
-  app.component(
-    `custom${key.replace(/[A-Z]/g, ($0) => {
-      return '-' + $0.toLowerCase();
-    })}`,
-    item
-  );
-});
+components(app);
 
 app.mount('#app');

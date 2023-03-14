@@ -16,7 +16,7 @@ export default {
    * 获取asset路径
    */
   getAssetUrl(url) {
-    return new URL(`../assets/${url}`, import.meta.url);
+    return new URL(`../assets/img/${url}`, import.meta.url);
   },
   /**
    * 获取地址栏参数

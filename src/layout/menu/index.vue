@@ -52,22 +52,28 @@ export default defineComponent({
     }
     function getSelectedKeys(route) {
       const { meta = {} } = route;
-      const { _parent: parent } = meta;
+      // const { _parent: parent } = meta;
+      const parent = meta._parent;
 
       if (meta.isEntry) {
         return [route.name];
       }
-      return [(parent || {}).name];
+      if (parent) {
+        return [parent.name];
+      }
+      return [];
     }
     function getOpenKeys(route) {
       const keys = [];
 
       function recursion(route) {
         const { meta = {} } = route;
-        const { _parent: parent } = meta;
+        // const { _parent: parent } = meta;
+        const parent = meta._parent;
 
         if (parent) {
-          parent.path === 'null' && keys.push(parent.name);
+          // parent.path === 'null' && keys.push(parent.name);
+          parent.children && parent.children.length > 0 && keys.push(parent.name);
           recursion(parent);
         }
       }

@@ -5,6 +5,65 @@
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
     <title>vue3-frame</title>
+    <style>
+      .preload-wrapper {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        background-color: #fff;
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        z-index: 9999;
+      }
+
+      .preload-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 100%;
+        user-select: none;
+        flex-grow: 1;
+      }
+
+      .preload-name {
+        font-size: 32px;
+        color: #262626;
+        margin-bottom: 30px;
+      }
+
+      .preload-title {
+        color: #595959;
+        font-size: 14px;
+        margin: 30px 0 20px 0;
+      }
+
+      .preload-sub-title {
+        color: #8c8c8c;
+        font-size: 12px;
+      }
+
+      .preload-loading {
+        width: 35px;
+        height: 35px;
+        border: 3px solid #409eff;
+        border-top-color: transparent;
+        border-radius: 100%;
+        animation: circle infinite 0.75s linear;
+      }
+
+      @keyframes circle {
+        0% {
+          transform: rotate(0);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
     <!-- theme style -->
     <link id="dynamic-theme" href="/theme/antd.compact.min.css" rel="stylesheet" type="text/css">
     <!-- <link id="dynamic-theme-variable" name="dynamic-theme" href="/theme/antd.variable.min.css" rel="stylesheet" type="text/css" disabled>
@@ -13,7 +72,22 @@
     <link id="dynamic-theme-dark-compact" name="dynamic-theme" href="/theme/antd.dark-compact.min.css" rel="stylesheet" type="text/css" disabled> -->
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <div class="preload-wrapper" style="display: none;">
+        <div class="preload-container">
+          <p class="preload-name">Vue3-frame</p>
+          <div class="preload-loading"></div>
+          <p class="preload-title">加载资源中...</p>
+          <p class="preload-sub-title">首次加载资源可能需要较多时间 请耐心等待</p>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      setTimeout(() => {
+        const preload = document.querySelector('.preload-wrapper');
+        preload && (preload.style.display = 'flex');
+      }, 200);
+    </script>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>

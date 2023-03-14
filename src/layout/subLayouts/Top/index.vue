@@ -94,16 +94,17 @@ const navis = computed(() => {
     .filter((item) => item);
 });
 const keepAliveIncludes = computed(() => {
-  const res = (_.get(route, 'meta.navi') || []).map(key => {
-    const routeItem = routeMap[key];
-    if (routeItem && _.get(routeItem, 'meta.keepAlive')) {
-      return key;
-    }
-  }).filter(item => item);
+  const res = (_.get(route, 'meta.navi') || [])
+    .map((key) => {
+      const routeItem = routeMap[key];
+      if (routeItem && _.get(routeItem, 'meta.keepAlive')) {
+        return key;
+      }
+    })
+    .filter((item) => item);
 
   return res;
 });
-
 
 // life circle
 onMounted(() => {
